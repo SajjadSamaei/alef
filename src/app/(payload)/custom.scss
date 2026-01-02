@@ -1,0 +1,15 @@
+/* SCSS with nesting */
+body.login.template-minimal {
+  background-color: #eef1f6; // Your background color
+
+  .form-submit {
+    .btn {
+      background-color: #4a90e2;
+
+      /* The '&' refers to the parent selector, '.btn' */
+      &:hover {
+        background-color: #357abd;
+      }
+    }
+  }
+}

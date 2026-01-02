@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/payload/*": ["payload/*"],
+      "@/utils/*": ["../utils/*"],
+      "@/api/*": ["app/api/*"],
+      "@/app/*": ["app/*"],
+      "@/public/*": ["../public/*"],
+      "@/src/*": ["../src/*"],
+      "@/db/*": ["db/*"],
+      "@payload-types": ["./payload-types.ts"],
+      "@payload-config": ["./payload.config.ts"]
+    },
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    // "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "target": "ES2022"
+  },
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

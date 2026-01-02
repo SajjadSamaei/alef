@@ -1,0 +1,166 @@
+import { Suspense } from "react";
+import Link from "next/link";
+import ChegallLocationMap from "@/components/chegall/map/chegall-location";
+import { ContactForm } from "@/components/Forms/ui/chegall-inquiries-form";
+import { FadeIn } from "@/components/chegall/studio/FadeIn";
+import { Offices } from "@/components/chegall/studio/Offices";
+import { SocialMedia } from "@/components/chegall/studio/SocialMedia";
+import { Container } from "@/components/chegall/studio/Container";
+import { Border } from "@/components/chegall/studio/Border";
+import { GradientComponent } from "@/components/chegall/radient/gradient";
+import { TypingAnimation } from "@/components/ui/magicui/typing-animation";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { locales } from "@/src/i18n/i18n.config";
+
+type Locale = (typeof locales)[number];
+
+type Props = {
+  params: Promise<{ locale: Locale }>;
+};
+
+// 1. Static Generation
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+// 2. Metadata
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata.Contact" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    openGraph: { title: t("title"), description: t("description") },
+    twitter: { title: t("title"), description: t("description") },
+  };
+}
+
+// --- Server Components ---
+
+// This component fetches its own data. This is valid and efficient in RSC.
+async function ContactDetails({ locale }: { locale: Locale }) {
+  const t = await getTranslations({ locale, namespace: "Contact.Details" });
+
+  return (
+    <div className="flex flex-col gap-10">
+      <FadeIn>
+        <h2 className="font-display text-lg font-semibold text-neutral-950 dark:text-white">
+          {t("ourOffice")}
+        </h2>
+        <p className="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+          {t("officeDescription")}
+        </p>
+        <Offices className="mt-8 grid grid-cols-1 gap-8" />
+      </FadeIn>
+
+      <Border position="top" className="pt-10">
+        <FadeIn>
+          <h2 className="font-display text-lg font-semibold text-neutral-950 dark:text-white">
+            {t("emailTitle")}
+          </h2>
+          <dl className="mt-4 grid grid-cols-1 gap-8 text-sm">
+            <div>
+              <dt className="sr-only">Email</dt>
+              <dd>
+                <Link
+                  href="mailto:info@chegall.com"
+                  className="font-medium text-neutral-600 transition hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
+                >
+                  info@chegall.com
+                </Link>
+              </dd>
+            </div>
+          </dl>
+        </FadeIn>
+      </Border>
+
+      <Border position="top" className="pt-10">
+        <FadeIn>
+          <h2 className="font-display text-lg font-semibold text-neutral-950 dark:text-white">
+            {t("followTitle")}
+          </h2>
+          <SocialMedia className="mt-4" />
+        </FadeIn>
+      </Border>
+    </div>
+  );
+}
+
+function CinematicMap({ tLoading }: { tLoading: string }) {
+  return (
+    <FadeIn>
+      <div className="group relative h-96 w-full overflow-hidden rounded-[40px] shadow-2xl ring-1 shadow-neutral-950/5 ring-neutral-950/5 sm:h-[32rem] lg:h-[40rem] dark:ring-white/10">
+        <Suspense
+          fallback={
+            <div className="flex h-full items-center justify-center text-sm text-neutral-400">
+              {tLoading}
+            </div>
+          }
+        >
+          <ChegallLocationMap />
+        </Suspense>
+        {/* Subtle Vignette Overlay for Cinema Look */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+      </div>
+    </FadeIn>
+  );
+}
+
+// --- Page ---
+
+export default async function Contact({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const tHero = await getTranslations("Contact.Hero");
+
+  return (
+    <>
+      {/* 1. Hero */}
+      <div className="section-style relative mt-10 lg:mt-10">
+        <GradientComponent className="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset" />
+        <Container className="relative">
+          <div className="flex flex-col items-center justify-center gap-6 pt-24 pb-32 md:pt-32 md:pb-48">
+            <div className="flex items-center justify-center px-4">
+              <TypingAnimation className="font-display text-center text-5xl font-medium tracking-tight text-neutral-950 sm:text-7xl md:text-8xl">
+                {tHero("title")}
+              </TypingAnimation>
+            </div>
+            <p className="max-w-xl text-center text-lg leading-relaxed text-neutral-600 sm:text-xl dark:text-neutral-400">
+              {tHero("description")}
+            </p>
+          </div>
+        </Container>
+      </div>
+
+      <Container className="mt-20 lg:mt-32">
+        {/* 2. Content Grid */}
+        <div className="grid grid-cols-1 gap-x-16 gap-y-16 lg:grid-cols-12">
+          {/* Form (Major Column) */}
+          <div className="lg:col-span-7 xl:col-span-8">
+            <ContactForm />
+          </div>
+
+          {/* Details (Minor Column - Sticky) */}
+          <div className="lg:col-span-5 lg:pl-8 xl:col-span-4">
+            <div className="lg:sticky lg:top-12">
+              <ContactDetails locale={locale} />
+            </div>
+          </div>
+        </div>
+
+        {/* 3. Cinematic Map */}
+        <div className="mt-32 mb-24">
+          <div className="mb-10 px-2">
+            <h2 className="font-display text-2xl font-semibold text-neutral-950 dark:text-white">
+              {tHero("mapTitle")}{" "}
+              {/* Ensure you add this key to your translation file */}
+            </h2>
+          </div>
+          <CinematicMap tLoading={tHero("loadingMap")} />
+        </div>
+      </Container>
+    </>
+  );
+}

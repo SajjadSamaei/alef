@@ -1,0 +1,12 @@
+onlyBuiltDependencies:
+  - '@clerk/shared'
+  - '@persian-tools/persian-tools'
+  - '@tailwindcss/oxide'
+  - browser-tabs-lock
+  - core-js
+  - esbuild
+  - sharp
+  - unrs-resolver
+
+patchedDependencies:
+  '@payloadcms/ui': patches/@payloadcms__ui.patch

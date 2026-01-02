@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591.37 478.91">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <path d="m372.62.91h37.19v239.53h26.65v238.32h-63.83V.91Z"/>
+    <path d="m450,.46h37.34v239.38h26.65v238.47h-63.98V.46Z"/>
+    <path d="m527.54.46h37.19v239.38h26.65v238.47h-63.83V.46Z"/>
+  </g>
+  <polygon class="cls-1" points="359.07 239.38 359.07 478.91 0 478.91 0 0 210.02 0 210.02 478.76 252.63 478.76 252.63 239.38 279.73 239.38 279.73 0 289.36 0 289.36 478.76 331.82 478.76 331.82 239.38 359.07 239.38"/>
+</svg>

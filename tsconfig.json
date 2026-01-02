@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/payload/*": ["payload/*"],
+      "@/utils/*": ["../utils/*"],
+      "@/lib/*": ["lib/*"],
+      "@/api/*": ["app/api/*"],
+      "@/app/*": ["app/*"],
+      "@/public/*": ["../public/*"],
+      "@/src/*": ["../src/*"],
+      "@/db/*": ["db/*"],
+      "@payload-types": ["./payload-types.ts"],
+      "@payload-config": ["./payload.config.ts"]
+    },
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    // "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowArbitraryExtensions": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "target": "ES2022"
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/Forms/ui/chegall-inquiries-form.tsx",
+    "src/app/(management)/management/(auth)/signup/page.jsx",
+    "src/components/blog/ui/blog-ribbon-2.jsx",
+    "src/payload/components/BlogMedia/inLineMedia/Imagetsx",
+    "utils/helpers/date-time.js",
+    "src/components/nova/pages/team/team.jsx",
+    "src/components/chegall/projects/golkhaneh/features/golkhaneh-features.tsx",
+    "src/components/chegall/jaroun/maps/location-benefits/jaroun-dynamic-map-big.jsx",
+    "src/components/chegall/jaroun/sections/units-level-map/unit-selector.tsx",
+    "src/components/chegall/jaroun/sections/units-level-map/level-map.tsx",
+    "src/components/chegall/jaroun/sections/units-level-map/jaroun-level-map.jsx",
+    "src/components/chegall/jaroun/ui/jaroun-card-stack.tsx",
+    ".next/dev/types/**/*.ts",
+    "src/components/chegall/embala-carousel.jsx",
+    "src/types.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}

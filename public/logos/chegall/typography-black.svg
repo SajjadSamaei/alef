@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188.08 115.17">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: .71px;
+      }
+    </style>
+  </defs>
+  <g id="_0" data-name="0">
+    <g id="LWPOLYLINE">
+      <polyline class="cls-1" points="24.02 .39 24.02 71.45 .35 71.45 .35 83.38 35.7 83.38 35.7 .39 24.02 .39"/>
+    </g>
+    <g id="LWPOLYLINE-2" data-name="LWPOLYLINE">
+      <polyline class="cls-1" points="43.46 .39 43.46 83.38 187.72 83.38 187.72 34.31 144.91 34.31 144.91 58.91 156.58 58.91 156.58 46.29 176.39 46.29 176.39 71.44 94.7 71.44 94.7 34.34 63.02 34.34 63.02 46.42 83.51 46.42 83.51 71.14 55.07 71.14 55.07 .38 43.46 .38"/>
+    </g>
+    <g id="LWPOLYLINE-3" data-name="LWPOLYLINE">
+      <polyline class="cls-1" points="187.54 114.81 175.35 114.81 175.35 102.7 144.75 102.7 144.75 90.51 187.54 90.51 187.54 114.81"/>
+    </g>
+    <g id="LWPOLYLINE-4" data-name="LWPOLYLINE">
+      <polyline class="cls-1" points="187.48 14.97 187.48 27.21 62.87 27.21 62.87 14.91 187.48 14.97"/>
+    </g>
+    <g id="LWPOLYLINE-5" data-name="LWPOLYLINE">
+      <polyline class="cls-1" points="187.51 12.36 137.5 12.36 137.5 .35 187.59 .35 187.59 12.36"/>
+    </g>
+  </g>
+</svg>

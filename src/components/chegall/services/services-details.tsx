@@ -9,7 +9,22 @@ import { ImageMedia } from "@/components/Blog/Media/ImageMedia"; // ✅ Use Imag
 import { TagList, TagListItem } from "@/components/chegall/studio/TagList";
 import { useTranslations } from "next-intl";
 import { GradientComponent } from "@/components/chegall/radient/gradient";
-import type { Media } from "@/src/payload-types";
+import type { Media, ServicesPage } from "@/src/payload-types";
+
+type ServiceContent =
+  | ServicesPage["architecture"]
+  | ServicesPage["interior"]
+  | ServicesPage["urban"]
+  | ServicesPage["supervision"]
+  | ServicesPage["restoration"];
+
+const resolveTags = (content: ServiceContent, fallback: string[]) => {
+  const tags = content?.tags
+    ?.map((item) => item.label)
+    .filter((label): label is string => Boolean(label));
+
+  return tags?.length ? tags : fallback;
+};
 
 // ✅ 1. Update ServiceSection to accept 'media' instead of 'image' props
 function ServiceSection({
@@ -78,25 +93,28 @@ function ServiceSection({
 
 export function Architecture({
   media,
+  content,
 }: {
   media: number | Media | null | undefined;
+  content?: ServicesPage["architecture"];
 }) {
   const t = useTranslations("ServicesPage.Architecture");
+  const tags = resolveTags(content, t.raw("tags"));
   return (
     <ServiceSection
       id={t("id")}
-      title={t("title")}
-      subtitle={t("subtitle")}
+      title={content?.title || t("title")}
+      subtitle={content?.subtitle || t("subtitle")}
       media={media}
     >
       <div className="sub-paragraph-style space-y-6 text-base text-neutral-600 dark:text-neutral-400">
-        <p>{t("description")}</p>
+        <p>{content?.description || t("description")}</p>
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {content?.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -106,25 +124,28 @@ export function Architecture({
 
 export function InteriorDesign({
   media,
+  content,
 }: {
   media: number | Media | null | undefined;
+  content?: ServicesPage["interior"];
 }) {
   const t = useTranslations("ServicesPage.InteriorDesign");
+  const tags = resolveTags(content, t.raw("tags"));
   return (
     <ServiceSection
       id={t("id")}
-      title={t("title")}
-      subtitle={t("subtitle")}
+      title={content?.title || t("title")}
+      subtitle={content?.subtitle || t("subtitle")}
       media={media}
     >
       <div className="sub-paragraph-style space-y-6 text-base text-neutral-600 dark:text-neutral-400">
-        <p>{t("description")}</p>
+        <p>{content?.description || t("description")}</p>
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {content?.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -134,25 +155,28 @@ export function InteriorDesign({
 
 export function UrbanDesign({
   media,
+  content,
 }: {
   media: number | Media | null | undefined;
+  content?: ServicesPage["urban"];
 }) {
   const t = useTranslations("ServicesPage.UrbanDesign");
+  const tags = resolveTags(content, t.raw("tags"));
   return (
     <ServiceSection
       id={t("id")}
-      title={t("title")}
-      subtitle={t("subtitle")}
+      title={content?.title || t("title")}
+      subtitle={content?.subtitle || t("subtitle")}
       media={media}
     >
       <div className="sub-paragraph-style space-y-6 text-base text-neutral-600 dark:text-neutral-400">
-        <p>{t("description")}</p>
+        <p>{content?.description || t("description")}</p>
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {content?.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -162,25 +186,28 @@ export function UrbanDesign({
 
 export function Supervision({
   media,
+  content,
 }: {
   media: number | Media | null | undefined;
+  content?: ServicesPage["supervision"];
 }) {
   const t = useTranslations("ServicesPage.Supervision");
+  const tags = resolveTags(content, t.raw("tags"));
   return (
     <ServiceSection
       id={t("id")}
-      title={t("title")}
-      subtitle={t("subtitle")}
+      title={content?.title || t("title")}
+      subtitle={content?.subtitle || t("subtitle")}
       media={media}
     >
       <div className="sub-paragraph-style space-y-6 text-base text-neutral-600 dark:text-neutral-400">
-        <p>{t("description")}</p>
+        <p>{content?.description || t("description")}</p>
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {content?.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -190,25 +217,28 @@ export function Supervision({
 
 export function Restoration({
   media,
+  content,
 }: {
   media: number | Media | null | undefined;
+  content?: ServicesPage["restoration"];
 }) {
   const t = useTranslations("ServicesPage.Restoration");
+  const tags = resolveTags(content, t.raw("tags"));
   return (
     <ServiceSection
       id={t("id")}
-      title={t("title")}
-      subtitle={t("subtitle")}
+      title={content?.title || t("title")}
+      subtitle={content?.subtitle || t("subtitle")}
       media={media}
     >
       <div className="sub-paragraph-style space-y-6 text-base text-neutral-600 dark:text-neutral-400">
-        <p>{t("description")}</p>
+        <p>{content?.description || t("description")}</p>
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {content?.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -216,7 +246,7 @@ export function Restoration({
   );
 }
 
-export function Process() {
+export function Process({ content }: { content?: ServicesPage["process"] }) {
   const t = useTranslations("ServicesPage.Process");
 
   return (
@@ -246,10 +276,10 @@ export function Process() {
           <FadeIn>
             <div className="mx-auto max-w-2xl text-center">
               <h3 className="font-display text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl dark:text-white">
-                {t("title")}
+                {content?.title || t("title")}
               </h3>
               <p className="mt-6 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
-                {t("description")}
+                {content?.description || t("description")}
               </p>
               <div className="mt-10 flex justify-center">
                 <Link
@@ -261,7 +291,7 @@ export function Process() {
                     "dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200",
                   )}
                 >
-                  {t("buttonLabel")}
+                  {content?.buttonLabel || t("buttonLabel")}
                 </Link>
               </div>
             </div>

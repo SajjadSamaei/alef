@@ -33,6 +33,13 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ["pages", "posts"],
     overrides: {
+      admin: {
+        group: { en: "Site settings", fa: "تنظیمات سایت" },
+        description: {
+          en: "Redirect retired or changed URLs to their new destination.",
+          fa: "نشانی‌های قدیمی یا تغییرکرده را به مقصد جدید هدایت کنید.",
+        },
+      },
       // @ts-expect-error - This is a valid override
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -40,8 +47,10 @@ export const plugins: Plugin[] = [
             return {
               ...field,
               admin: {
-                description:
-                  "You will need to rebuild the website when changing this field.",
+                description: {
+                  en: "Enter the old path, beginning with /.",
+                  fa: "مسیر قدیمی را با / در ابتدای آن وارد کنید.",
+                },
               },
             };
           }
@@ -72,12 +81,12 @@ export const plugins: Plugin[] = [
     },
     formSubmissionOverrides: {
       admin: {
-        group: "Forms",
+        hidden: true,
       },
     },
     formOverrides: {
       admin: {
-        group: "Forms",
+        hidden: true,
       },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -106,6 +115,9 @@ export const plugins: Plugin[] = [
     collections: ["posts", "projects", "case-studies", "team", "static-pages"],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      admin: {
+        hidden: true,
+      },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields];
       },

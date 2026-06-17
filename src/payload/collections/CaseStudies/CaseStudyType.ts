@@ -13,7 +13,7 @@ export const CaseStudyType: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
-    group: "Agency",
+    group: "پروژه‌ها و تیم",
   },
   fields: [
     {

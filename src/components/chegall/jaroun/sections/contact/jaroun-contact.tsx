@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { Container } from "@/components/chegall/studio/Container";
 import { FadeIn } from "@/components/chegall/studio/FadeIn";
 import { Logo } from "@/components/chegall/studio/Logo";
-import { socialMediaProfiles } from "@/components/chegall/studio/SocialMedia";
 import { useFormatter, useLocale, useTranslations } from "next-intl"; // 2. Import hooks
 import { Offices } from "@/components/chegall/studio/Offices";
 import JarounLogo from "@/public/logos/jaroun/logo-dark.svg";

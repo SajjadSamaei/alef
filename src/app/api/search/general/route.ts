@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPayload } from "payload";
+import { getPayload, type Where } from "payload";
 import configPromise from "@payload-config";
 import { getLocale } from "next-intl/server";
 
@@ -19,21 +19,45 @@ export async function GET(req: NextRequest) {
   try {
     const payload = await getPayload({ config: configPromise });
 
-    const searchResults = await payload.find({
-      collection: "search",
-      depth: 1, // This populates 'heroImage' AND 'doc' (the original item)
-      limit: 10,
-      locale,
-      where: {
-        or: [
-          { title: { like: query } },
-          { description: { like: query } },
-          { keywords: { like: query } },
-        ],
-      },
-    });
+    const searchWhere: Where = {
+      or: [
+        { title: { like: query } },
+        { description: { like: query } },
+        { keywords: { like: query } },
+        { slug: { like: query } },
+      ],
+    };
+    const locales = [locale, locale === "fa" ? "en" : "fa"] as const;
+    const localeResults = await Promise.all(
+      locales.map((searchLocale) =>
+        payload.find({
+          collection: "search",
+          depth: 1,
+          limit: 10,
+          locale: searchLocale,
+          fallbackLocale: false,
+          where: searchWhere,
+        }),
+      ),
+    );
+    const searchResults = localeResults
+      .flatMap((result) => result.docs)
+      .filter(
+        (doc, index, docs) =>
+          docs.findIndex(
+            (candidate) =>
+              candidate.doc?.relationTo === doc.doc?.relationTo &&
+              (typeof candidate.doc?.value === "object"
+                ? candidate.doc.value?.id
+                : candidate.doc?.value) ===
+                (typeof doc.doc?.value === "object"
+                  ? doc.doc.value?.id
+                  : doc.doc?.value),
+          ) === index,
+      )
+      .slice(0, 10);
 
-    const formattedResults = searchResults.docs.map((doc: any) => {
+    const formattedResults = searchResults.map((doc: any) => {
       // 1. Try to get the image from the Search Index
       let imageToUse = doc.heroImage;
 

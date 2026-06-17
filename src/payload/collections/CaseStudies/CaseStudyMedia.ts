@@ -33,7 +33,8 @@ export const generatePlaceholder: CollectionBeforeChangeHook = async ({
 
 export const CaseStudyMedia: CollectionConfig = {
   admin: {
-    group: "Agency",
+    group: "رسانه‌ها",
+    description: "تصاویر و ویدئوهای پروژه‌های معماری",
   },
   slug: "case-study-media",
   access: {

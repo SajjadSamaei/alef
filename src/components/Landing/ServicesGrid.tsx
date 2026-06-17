@@ -30,6 +30,7 @@ export function ScrollToSection({ to, children, className }: ScrollLinkProps) {
 }
 
 type ServicesData = LandingPage["services"];
+type ServicesCopy = LandingPage["servicesCopy"];
 
 function GridItem({
   className,
@@ -82,7 +83,13 @@ function GridItem({
   );
 }
 
-export function ServicesGrid({ data }: { data: ServicesData }) {
+export function ServicesGrid({
+  data,
+  content,
+}: {
+  data: ServicesData;
+  content?: ServicesCopy;
+}) {
   const t = useTranslations("ServicesPage.Grid");
   const tIntro = useTranslations("Services.Intro");
 
@@ -101,13 +108,13 @@ export function ServicesGrid({ data }: { data: ServicesData }) {
       <FadeIn className="col-span-2">
         <div className="section-padding section-style mx-auto text-center">
           <h2 className="text-jarounGray7 eyebrow-style mb-2 lg:mb-3">
-            {tIntro("eyebrow")}
+            {content?.eyebrow || tIntro("eyebrow")}
           </h2>
           <p className="text-jarounGray7 title-style text-4xl font-medium sm:text-5xl">
-            {tIntro("title")}
+            {content?.title || tIntro("title")}
           </p>
           <p className="text-jarounGray6 paragraph-style mx-auto mt-6 max-w-3xl text-center text-xl">
-            {tIntro("description")}
+            {content?.description || tIntro("description")}
           </p>
         </div>
       </FadeIn>
@@ -120,7 +127,7 @@ export function ServicesGrid({ data }: { data: ServicesData }) {
         <GridItem
           className="col-span-1 row-span-1 sm:col-span-2 lg:col-span-2"
           media={data?.architecture}
-          title={t("architecture.title")}
+          title={content?.architectureTitle || t("architecture.title")}
           linkTo="architecture"
           // Uses Start-Start (Top Right in Farsi / Top Left in English)
           roundingClassName={clsx(baseRounding, startStart)}
@@ -130,7 +137,7 @@ export function ServicesGrid({ data }: { data: ServicesData }) {
         <GridItem
           className="col-span-1 row-span-1 lg:col-span-1"
           media={data?.interior}
-          title={t("interior.title")}
+          title={content?.interiorTitle || t("interior.title")}
           linkTo="interior-design"
           // Uses Start-End
           roundingClassName={clsx(baseRounding, startEnd)}
@@ -140,7 +147,7 @@ export function ServicesGrid({ data }: { data: ServicesData }) {
         <GridItem
           className="col-span-1 row-span-1 lg:col-span-1"
           media={data?.urban}
-          title={t("urban.title")}
+          title={content?.urbanTitle || t("urban.title")}
           linkTo="urban-design"
           // Uses End-Start
           roundingClassName={clsx(baseRounding, endStart)}
@@ -150,7 +157,7 @@ export function ServicesGrid({ data }: { data: ServicesData }) {
         <GridItem
           className="col-span-1 row-span-1 lg:col-span-1"
           media={data?.supervision}
-          title={t("supervision.title")}
+          title={content?.supervisionTitle || t("supervision.title")}
           linkTo="supervision"
           // Middle items don't need outer rounding
           roundingClassName={baseRounding}
@@ -160,7 +167,7 @@ export function ServicesGrid({ data }: { data: ServicesData }) {
         <GridItem
           className="col-span-1 row-span-1 sm:col-span-2 lg:col-span-1"
           media={data?.restoration}
-          title={t("restoration.title")}
+          title={content?.restorationTitle || t("restoration.title")}
           linkTo="restoration"
           // Uses End-End
           roundingClassName={clsx(baseRounding, endEnd)}

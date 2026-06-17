@@ -22,7 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   cacheLife("days");
 
   const payload = await getPayload({ config: configPromise });
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "https://chegall.com";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SERVER_URL || "https://alef-office.ir";
 
   const sitemap: MetadataRoute.Sitemap = [];
 

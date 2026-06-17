@@ -9,10 +9,11 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { useTranslations, useFormatter } from "next-intl";
 import { locales } from "@/src/i18n/i18n.config";
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
+import { TypedLocale } from "payload";
 import type { ProcessPage } from "@/src/payload-types";
 import type { Media } from "@/src/payload-types";
+import { getCachedGlobal } from "@/payload/utilities/getGlobals";
+import { getSiteSettings, getStaticPageMetadata, requireEnabledPage } from "@/payload/utilities/siteSettings";
 
 type Locale = (typeof locales)[number];
 
@@ -20,29 +21,37 @@ type Props = {
   params: Promise<{ locale: Locale }>;
 };
 
-async function getProcessPageData(): Promise<ProcessPage> {
-  const payload = await getPayload({ config: configPromise });
-  return (await payload.findGlobal({
-    slug: "process-page",
-    depth: 1,
-  })) as ProcessPage;
-}
-
 // --- Metadata ---
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata.Process" });
-
-  return {
-    title: t("title"),
-    description: t("description"),
-    openGraph: { title: t("title"), description: t("description") },
-    twitter: { title: t("title"), description: t("description") },
-  };
+  const settings = await getSiteSettings(locale as TypedLocale);
+  return getStaticPageMetadata({ settings, page: "process", fallbackTitle: t("title"), fallbackDescription: t("description") });
 }
 
 // --- Helper Type ---
 type ProcessMedia = number | Media | null | undefined;
+type PhaseData =
+  | ProcessPage["vision"]
+  | ProcessPage["design"]
+  | ProcessPage["technical"]
+  | ProcessPage["execution"];
+
+const resolveParagraphs = (data: PhaseData, fallback: string[]) => {
+  const paragraphs = data?.paragraphs
+    ?.map((item) => item.text)
+    .filter((text): text is string => Boolean(text));
+
+  return paragraphs?.length ? paragraphs : fallback;
+};
+
+const resolveTags = (data: PhaseData, fallback: string[]) => {
+  const tags = data?.tags
+    ?.map((item) => item.label)
+    .filter((label): label is string => Boolean(label));
+
+  return tags?.length ? tags : fallback;
+};
 
 // --- Shared Component ---
 
@@ -116,26 +125,29 @@ function ProcessSection({
 }
 
 // --- 1. Vision & Strategy ---
-function VisionPhase({ media }: { media: ProcessMedia }) {
+function VisionPhase({ data }: { data: ProcessPage["vision"] }) {
   const t = useTranslations("Process.Sections.Vision");
   const format = useFormatter();
+  const paragraphs = resolveParagraphs(data, [t("p1"), t("p2")]);
+  const tags = resolveTags(data, t.raw("tags"));
 
   return (
     <ProcessSection
       stepNumber={format.number(1, { minimumIntegerDigits: 2 })}
-      title={t("title")}
-      subtitle={t("subtitle")}
-      media={media}
+      title={data.title || t("title")}
+      subtitle={data.subtitle || t("subtitle")}
+      media={data.image}
     >
       <div className="space-y-6">
-        <p>{t("p1")}</p>
-        <p>{t("p2")}</p>
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {data.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -144,25 +156,29 @@ function VisionPhase({ media }: { media: ProcessMedia }) {
 }
 
 // --- 2. Concept & Design ---
-function DesignPhase({ media }: { media: ProcessMedia }) {
+function DesignPhase({ data }: { data: ProcessPage["design"] }) {
   const t = useTranslations("Process.Sections.Design");
   const format = useFormatter();
+  const paragraphs = resolveParagraphs(data, [t("p1")]);
+  const tags = resolveTags(data, t.raw("tags"));
 
   return (
     <ProcessSection
       stepNumber={format.number(2, { minimumIntegerDigits: 2 })}
-      title={t("title")}
-      subtitle={t("subtitle")}
-      media={media}
+      title={data.title || t("title")}
+      subtitle={data.subtitle || t("subtitle")}
+      media={data.image}
     >
       <div className="space-y-6">
-        <p>{t("p1")}</p>
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {data.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -171,25 +187,29 @@ function DesignPhase({ media }: { media: ProcessMedia }) {
 }
 
 // --- 3. Technical Development ---
-function TechnicalPhase({ media }: { media: ProcessMedia }) {
+function TechnicalPhase({ data }: { data: ProcessPage["technical"] }) {
   const t = useTranslations("Process.Sections.Technical");
   const format = useFormatter();
+  const paragraphs = resolveParagraphs(data, [t("p1")]);
+  const tags = resolveTags(data, t.raw("tags"));
 
   return (
     <ProcessSection
       stepNumber={format.number(3, { minimumIntegerDigits: 2 })}
-      title={t("title")}
-      subtitle={t("subtitle")}
-      media={media}
+      title={data.title || t("title")}
+      subtitle={data.subtitle || t("subtitle")}
+      media={data.image}
     >
       <div className="space-y-6">
-        <p>{t("p1")}</p>
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {data.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -198,25 +218,29 @@ function TechnicalPhase({ media }: { media: ProcessMedia }) {
 }
 
 // --- 4. Execution & Supervision ---
-function ExecutionPhase({ media }: { media: ProcessMedia }) {
+function ExecutionPhase({ data }: { data: ProcessPage["execution"] }) {
   const t = useTranslations("Process.Sections.Execution");
   const format = useFormatter();
+  const paragraphs = resolveParagraphs(data, [t("p1")]);
+  const tags = resolveTags(data, t.raw("tags"));
 
   return (
     <ProcessSection
       stepNumber={format.number(4, { minimumIntegerDigits: 2 })}
-      title={t("title")}
-      subtitle={t("subtitle")}
-      media={media}
+      title={data.title || t("title")}
+      subtitle={data.subtitle || t("subtitle")}
+      media={data.image}
     >
       <div className="space-y-6">
-        <p>{t("p1")}</p>
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
       <h3 className="font-display mt-8 text-lg font-semibold text-neutral-950 dark:text-white">
-        {t("detailsTitle")}
+        {data.detailsTitle || t("detailsTitle")}
       </h3>
       <TagList className="mt-4">
-        {t.raw("tags").map((tag: string) => (
+        {tags.map((tag: string) => (
           <TagListItem key={tag}>{tag}</TagListItem>
         ))}
       </TagList>
@@ -229,9 +253,14 @@ function ExecutionPhase({ media }: { media: ProcessMedia }) {
 export default async function ProcessPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  await requireEnabledPage("process", locale as TypedLocale);
 
   // ✅ Fetch Data
-  const processData = await getProcessPageData();
+  const processData = (await getCachedGlobal(
+    "process-page",
+    1,
+    locale as TypedLocale,
+  )()) as ProcessPage;
   const tHero = await getTranslations("Process.Hero");
 
   return (
@@ -243,11 +272,11 @@ export default async function ProcessPage({ params }: Props) {
           <div className="flex flex-col items-center justify-center gap-6 pt-24 pb-32 md:pt-32 md:pb-48">
             <div className="flex items-center justify-center px-4">
               <TypingAnimation className="font-display text-center text-5xl font-medium tracking-tight text-neutral-950 sm:text-7xl md:text-8xl">
-                {tHero("title")}
+                {processData.hero?.title || tHero("title")}
               </TypingAnimation>
             </div>
             <p className="max-w-xl text-center text-lg leading-relaxed text-neutral-600 sm:text-xl dark:text-neutral-400">
-              {tHero("description")}
+              {processData.hero?.description || tHero("description")}
             </p>
           </div>
         </Container>
@@ -256,10 +285,10 @@ export default async function ProcessPage({ params }: Props) {
       {/* 2. Process Steps */}
       <div className="mt-24 space-y-24 sm:mt-32 sm:space-y-32">
         {/* ✅ Pass dynamic media */}
-        <VisionPhase media={processData.vision?.image} />
-        <DesignPhase media={processData.design?.image} />
-        <TechnicalPhase media={processData.technical?.image} />
-        <ExecutionPhase media={processData.execution?.image} />
+        <VisionPhase data={processData.vision} />
+        <DesignPhase data={processData.design} />
+        <TechnicalPhase data={processData.technical} />
+        <ExecutionPhase data={processData.execution} />
       </div>
 
       <div className="section-padding" />

@@ -15,9 +15,22 @@ import { RootLayout as ChegallRootLayout } from "@/components/chegall/studio/Roo
 import { getDirection } from "@/utils/hooks/useDirection";
 import { splashScreens } from "@/utils/metadata/splashScreens";
 import { Suspense } from "react";
+import { PWARegistration } from "@/components/PWARegistration";
+import type { Viewport } from "next";
+import { getSiteSettings } from "@/payload/utilities/siteSettings";
+import type { TypedLocale } from "payload";
 
 const vazir = Vazirmatn({ subsets: ["arabic"] });
 const inter = IBM_Plex_Sans({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#ffffff" },
+  ],
+  colorScheme: "light dark",
+  viewportFit: "cover", // <--- THIS IS REQUIRED FOR TRANSLUCENT STATUS BARS
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -46,13 +59,13 @@ export async function generateMetadata({
   const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
 
   return {
-    metadataBase: new URL("https://chegall.com"),
+    metadataBase: new URL("https://alef-office.ir"),
     title: {
       template: t("titleTemplate"),
       default: t("titleDefault"),
     },
     category: "business",
-    creator: "Sajjad Samaei",
+    creator: "Alef Architecture Office",
     generator: "Next.js",
     keywords: t.raw("keywords"),
     description: t("description"),
@@ -60,22 +73,8 @@ export async function generateMetadata({
     openGraph: {
       title: t("og.title"),
       description: t("og.description"),
-      url: `https://chegall.com/${locale === "fa" ? "" : locale}`,
-      siteName: "Chegall",
-      images: [
-        {
-          url: "https://storage.c2.liara.space/chegall/images/chegall-banner-wide.png",
-          width: 1200,
-          height: 628,
-          alt: t("og.imageAlt"),
-        },
-        {
-          url: "https://storage.c2.liara.space/chegall/images/chegall-banner-square.png",
-          width: 1080,
-          height: 1080,
-          alt: t("og.imageAlt"),
-        },
-      ],
+      url: `https://alef-office.ir/${locale === "fa" ? "" : locale}`,
+      siteName: "Alef Architecture Office",
       locale: ogLocale,
       type: "website",
     },
@@ -83,9 +82,6 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("twitter.title"),
       description: t("twitter.description"),
-      images: [
-        "https://storage.c2.liara.space/chegall/images/chegall-twitter-card.png",
-      ],
     },
     appleWebApp: {
       capable: true,
@@ -105,8 +101,11 @@ export default async function RootLayout({ children, params }: Args) {
   setRequestLocale(locale);
 
   const direction = getDirection(locale);
-  const messages = await getMessages({ locale });
-  const t = await getTranslations({ locale, namespace: "JsonLd.Home" });
+  const [messages, t, siteSettings] = await Promise.all([
+    getMessages({ locale }),
+    getTranslations({ locale, namespace: "JsonLd.Home" }),
+    getSiteSettings(locale as TypedLocale),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -120,25 +119,22 @@ export default async function RootLayout({ children, params }: Args) {
       addressRegion: t("address.addressRegion"),
       addressCountry: t("address.addressCountry"),
     },
-    url: "https://chegall.com",
-    brand: "Chegall",
-    logo: "https://chegall.com/logo/chegall-logo-white.png",
-    foundingDate: "2024",
-    founder: "Rasoul Dabiri",
+    url: "https://alef-office.ir",
+    brand: "Alef Architecture Office",
+    logo: "https://alef-office.ir/logos/app/app-logo.png",
+    founder: "Homayoun Hosseinzadeh",
     keywords: t("keywords"),
     skills: t("skills"),
     slogan: t("slogan"),
     foundingLocation: t("address.addressLocality"),
     ContactPoint: {
       "@type": "ContactPoint",
-      telephone: "+989177609917",
-      hoursAvailable: "Sat-Tue 08:00-15:00",
+      telephone: siteSettings.contact?.phone,
+      hoursAvailable: siteSettings.contact?.workingHours,
       availableLanguage: t("availableLanguage"),
-      email: "info@chegall.com",
-      contactType: "sales",
+      email: siteSettings.contact?.email,
+      contactType: "project inquiries",
     },
-    image:
-      "https://storage.c2.liara.space/chegall/images/chegall-banner-square.png",
     description: t("description"),
   };
 
@@ -150,9 +146,12 @@ export default async function RootLayout({ children, params }: Args) {
       suppressHydrationWarning
     >
       <body>
+        <PWARegistration />
         <QueryProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <ChegallRootLayout>{children}</ChegallRootLayout>
+            <ChegallRootLayout settings={siteSettings}>
+              {children}
+            </ChegallRootLayout>
           </NextIntlClientProvider>
         </QueryProvider>
 

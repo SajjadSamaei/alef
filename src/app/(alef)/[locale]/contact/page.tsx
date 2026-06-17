@@ -12,6 +12,9 @@ import { TypingAnimation } from "@/components/ui/magicui/typing-animation";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { locales } from "@/src/i18n/i18n.config";
+import { getSiteSettings, getStaticPageMetadata, requireEnabledPage } from "@/payload/utilities/siteSettings";
+import type { TypedLocale } from "payload";
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 type Locale = (typeof locales)[number];
 
@@ -28,19 +31,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata.Contact" });
-
-  return {
-    title: t("title"),
-    description: t("description"),
-    openGraph: { title: t("title"), description: t("description") },
-    twitter: { title: t("title"), description: t("description") },
-  };
+  const settings = await getSiteSettings(locale as TypedLocale);
+  return getStaticPageMetadata({ settings, page: "contact", fallbackTitle: t("title"), fallbackDescription: t("description") });
 }
 
 // --- Server Components ---
 
 // This component fetches its own data. This is valid and efficient in RSC.
-async function ContactDetails({ locale }: { locale: Locale }) {
+async function ContactDetails({ locale, settings }: { locale: Locale; settings: PublicSiteSettings }) {
   const t = await getTranslations({ locale, namespace: "Contact.Details" });
 
   return (
@@ -52,7 +50,7 @@ async function ContactDetails({ locale }: { locale: Locale }) {
         <p className="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
           {t("officeDescription")}
         </p>
-        <Offices className="mt-8 grid grid-cols-1 gap-8" />
+        <Offices settings={settings} className="mt-8 grid grid-cols-1 gap-8" />
       </FadeIn>
 
       <Border position="top" className="pt-10">
@@ -65,10 +63,10 @@ async function ContactDetails({ locale }: { locale: Locale }) {
               <dt className="sr-only">Email</dt>
               <dd>
                 <Link
-                  href="mailto:info@chegall.com"
+                  href={`mailto:${settings.contact?.email}`}
                   className="font-medium text-neutral-600 transition hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
                 >
-                  info@chegall.com
+                  {settings.contact?.email}
                 </Link>
               </dd>
             </div>
@@ -81,7 +79,7 @@ async function ContactDetails({ locale }: { locale: Locale }) {
           <h2 className="font-display text-lg font-semibold text-neutral-950 dark:text-white">
             {t("followTitle")}
           </h2>
-          <SocialMedia className="mt-4" />
+          <SocialMedia settings={settings} className="mt-4" />
         </FadeIn>
       </Border>
     </div>
@@ -113,7 +111,10 @@ function CinematicMap({ tLoading }: { tLoading: string }) {
 export default async function Contact({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const tHero = await getTranslations("Contact.Hero");
+  const [tHero, settings] = await Promise.all([
+    getTranslations("Contact.Hero"),
+    requireEnabledPage("contact", locale as TypedLocale),
+  ]);
 
   return (
     <>
@@ -145,7 +146,7 @@ export default async function Contact({ params }: Props) {
           {/* Details (Minor Column - Sticky) */}
           <div className="lg:col-span-5 lg:pl-8 xl:col-span-4">
             <div className="lg:sticky lg:top-12">
-              <ContactDetails locale={locale} />
+              <ContactDetails locale={locale} settings={settings} />
             </div>
           </div>
         </div>

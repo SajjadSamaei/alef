@@ -30,9 +30,9 @@ const zodUrlValidator = (value: string | null | undefined) => {
 export const Team: CollectionConfig = {
   slug: "team",
   admin: {
-    group: "Agency", // Grouping under Agency feels more professional
+    group: "پروژه‌ها و تیم",
     useAsTitle: "name",
-    description: "Manage current staff and alumni architects/designers.",
+    description: "اعضای فعلی و پیشین دفتر معماری الف را مدیریت کنید.",
     defaultColumns: ["name", "role", "employmentStatus", "updatedAt"],
   },
   access: {

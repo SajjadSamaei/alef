@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import {
+  getSiteSettings,
+  getStaticPageMetadata,
+  requireEnabledPage,
+} from "@/payload/utilities/siteSettings";
 import { notFound } from "next/navigation";
 import { PortfolioUI } from "@/components/Portfolio/UI/Archive/PortfolioUI";
 // --- PAYLOAD & LOGIC IMPORTS ---
@@ -163,6 +168,16 @@ export async function generateMetadata({
 
   let title = tCaseStudy("title");
   let description = tCaseStudy("description");
+  const settings = await getSiteSettings(locale);
+  const baseMetadata = getStaticPageMetadata({
+    settings,
+    page: "portfolio",
+    fallbackTitle: title,
+    fallbackDescription: description,
+  });
+  title =
+    typeof baseMetadata.title === "string" ? baseMetadata.title : title;
+  description = baseMetadata.description || description;
   const parts: string[] = [];
 
   if (q) {
@@ -192,9 +207,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: title,
-    description: description,
+    ...baseMetadata,
+    title,
+    description,
     openGraph: {
+      ...baseMetadata.openGraph,
       title: title,
       description: description,
       type: "website",
@@ -210,6 +227,7 @@ export default async function PortfolioPage(props: Args) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { slug, locale } = await params;
+  await requireEnabledPage("portfolio", locale as TypedLocale);
   const { q, page } = searchParams;
   const pageNumber = parseInt((page as string) || "1");
 

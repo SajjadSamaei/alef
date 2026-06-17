@@ -12,12 +12,27 @@ export const getMediaUrl = (
 ): string => {
   if (!url) return "";
 
+  const normalizedUrl = url
+    .replace(
+      /^https:\/\/storage\.c2\.liara\.(?:site|space)\/chegall\//,
+      "https://storage.alef-office.ir/",
+    )
+    .replace(
+      /^https:\/\/storage\.alef-office\.ir\/chegall\//,
+      "https://storage.alef-office.ir/",
+    );
+
   // Check if URL already has http/https protocol
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return cacheTag ? `${url}?${cacheTag}` : url;
+  if (
+    normalizedUrl.startsWith("http://") ||
+    normalizedUrl.startsWith("https://")
+  ) {
+    return cacheTag ? `${normalizedUrl}?${cacheTag}` : normalizedUrl;
   }
 
   // Otherwise prepend client-side URL
   const baseUrl = getClientSideURL();
-  return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`;
+  return cacheTag
+    ? `${baseUrl}${normalizedUrl}?${cacheTag}`
+    : `${baseUrl}${normalizedUrl}`;
 };

@@ -5,9 +5,17 @@ import { ButtonCustomColor } from "@/components/ui/button";
 import { TypingAnimation } from "@/components/ui/magicui/typing-animation";
 import { useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react"; // Optional icon for the badge
+import type { LandingPage } from "@/src/payload-types";
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 // --- Hero Component ---
-export default function Hero() {
+export default function Hero({
+  content,
+  settings,
+}: {
+  content?: LandingPage["hero"];
+  settings: PublicSiteSettings;
+}) {
   const t = useTranslations("HomePage.Hero");
 
   return (
@@ -18,7 +26,7 @@ export default function Hero() {
       <Gradient className="absolute inset-2 bottom-2 rounded-4xl ring-1 ring-black/5 ring-inset sm:bottom-0 sm:min-h-0" />
 
       <Container className="relative h-full">
-        <Navbar />
+        <Navbar settings={settings} />
 
         {/* LAYOUT FIX: 
            - min-h-[80vh]: Forces the hero to take up screen height on mobile.
@@ -34,31 +42,31 @@ export default function Hero() {
               className="font-display text-center text-5xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-start sm:text-8xl/[0.8] md:text-9xl/[0.8]"
               duration={50}
             >
-              {t("title")}
+              {content?.title || t("title")}
             </TypingAnimation>
           </div>
 
           {/* Subtitle */}
           {/* Added 'text-center sm:text-left' and 'mx-auto sm:mx-0' */}
           <p className="mt-8 max-w-lg text-center text-lg/7 font-medium text-gray-950/75 sm:mx-0 sm:text-start sm:text-2xl/8">
-            {t("subtitle")}
+            {content?.subtitle || t("subtitle")}
           </p>
 
           {/* Buttons */}
           {/* Added 'w-full justify-center' for mobile buttons */}
           <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:mt-12 sm:w-fit sm:flex-row">
             <ButtonCustomColor
-              href="/about"
+              href="/portfolio"
               className="w-full justify-center rounded-full bg-neutral-950 px-8 py-4 font-semibold text-white hover:bg-neutral-800 sm:w-auto sm:py-3"
             >
-              {t("primaryButton")}
+              {content?.primaryButton || t("primaryButton")}
             </ButtonCustomColor>
 
             <ButtonCustomColor
-              href="/work"
+              href="/contact"
               className="w-full justify-center rounded-full bg-white px-8 py-4 font-semibold text-neutral-950 ring-1 ring-neutral-950/10 hover:bg-neutral-50 sm:w-auto sm:py-3"
             >
-              {t("secondaryButton")}
+              {content?.secondaryButton || t("secondaryButton")}
             </ButtonCustomColor>
           </div>
         </div>

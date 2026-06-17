@@ -17,23 +17,27 @@ import {
   HeaderLocaleSwitcherDesktop,
 } from "@/components/chegall/locale-switch";
 import { GeneralSearchBar } from "@/components/chegall/search/general-search";
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 // Define the structure
 const navItems = [
-  { href: "/portfolio", key: "portfolio" },
-  { href: "/services", key: "services" },
-  { href: "/process", key: "process" },
-  { href: "/about", key: "aboutUs" },
-  { href: "/blog", key: "blog" },
-  { href: "/contact", key: "workWithUs" },
-];
+  { href: "/portfolio", key: "portfolio", setting: "portfolio" },
+  { href: "/services", key: "services", setting: "services" },
+  { href: "/process", key: "process", setting: "process" },
+  { href: "/about", key: "aboutUs", setting: "about" },
+  { href: "/blog", key: "blog", setting: "blog" },
+  { href: "/contact", key: "workWithUs", setting: "contact" },
+] as const;
 
-function DesktopNav() {
+function DesktopNav({ settings }: { settings: PublicSiteSettings }) {
   const t = useTranslations("Navigation");
+  const visibleItems = navItems.filter(
+    ({ setting }) => settings.pages?.[setting] !== false,
+  );
 
   return (
     <nav className="relative hidden lg:flex">
-      {navItems.map(({ href, key }) => (
+      {visibleItems.map(({ href, key }) => (
         <PlusGridItem key={href} className="relative flex">
           <Link
             href={href}
@@ -70,13 +74,16 @@ function MobileNavButton() {
   );
 }
 
-function MobileNav() {
+function MobileNav({ settings }: { settings: PublicSiteSettings }) {
   const t = useTranslations("Navigation");
+  const visibleItems = navItems.filter(
+    ({ setting }) => settings.pages?.[setting] !== false,
+  );
 
   return (
     <DisclosurePanel className="lg:hidden">
       <div className="flex flex-col gap-6 py-4">
-        {navItems.map(({ href, key }, linkIndex) => (
+        {visibleItems.map(({ href, key }, linkIndex) => (
           <motion.div
             initial={{ opacity: 0, rotateX: -90 }}
             animate={{ opacity: 1, rotateX: 0 }}
@@ -116,7 +123,13 @@ function MobileNav() {
   );
 }
 
-export function Navbar({ banner }: { banner?: React.ReactNode }) {
+export function Navbar({
+  banner,
+  settings,
+}: {
+  banner?: React.ReactNode;
+  settings: PublicSiteSettings;
+}) {
   const locale = useLocale();
   const direction = getDirection(locale);
 
@@ -139,12 +152,12 @@ export function Navbar({ banner }: { banner?: React.ReactNode }) {
               )}
             </div>
 
-            <DesktopNav />
+            <DesktopNav settings={settings} />
             <MobileNavButton />
           </PlusGridRow>
         </PlusGrid>
 
-        <MobileNav />
+        <MobileNav settings={settings} />
       </Disclosure>
     </Suspense>
   );

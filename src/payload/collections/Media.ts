@@ -33,7 +33,8 @@ export const generatePlaceholder: CollectionBeforeChangeHook = async ({
 
 export const Media: CollectionConfig = {
   admin: {
-    group: "General",
+    group: "رسانه‌ها",
+    description: "تصاویر عمومی صفحات، خدمات و محتوای سایت",
   },
   slug: "media",
   access: {

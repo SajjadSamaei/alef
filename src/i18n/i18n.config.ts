@@ -28,5 +28,5 @@ export const defaultOgLocale = "en_US";
 export const i18n = {
   locales: ["en", "fa"],
   defaultLocale: "fa",
-  domain: process.env.NEXT_PUBLIC_SITE_URL || "https://chegall.com",
+  domain: process.env.NEXT_PUBLIC_SITE_URL || "https://alef-office.ir",
 };

@@ -17,6 +17,7 @@ import { getDirection } from "@/utils/hooks/useDirection";
 import { Team } from "@/src/payload-types";
 import { FallbackToastNotifier } from "@/components/Blog/UI/FallbackToastNotifier";
 import { Container } from "@/components/chegall/studio/Container";
+import { requireEnabledPage } from "@/payload/utilities/siteSettings";
 
 const { BASE_URL } = process.env;
 const DEFAULT_LOCALE = localization.defaultLocale || "en";
@@ -95,6 +96,7 @@ type Args = {
 export default async function TeamMemberPage({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode();
   const { slug = "", locale } = await paramsPromise;
+  await requireEnabledPage("team", locale);
 
   setRequestLocale(locale);
 

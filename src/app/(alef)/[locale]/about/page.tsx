@@ -15,6 +15,10 @@ import type { Metadata } from "next";
 import configPromise from "@payload-config";
 import { getPayload, TypedLocale } from "payload";
 import type { Team as Teams } from "@/src/payload-types";
+import type { AboutPage as AboutPageData } from "@/src/payload-types";
+import { getCachedGlobal } from "@/payload/utilities/getGlobals";
+import { ImageMedia } from "@/components/Blog/Media/ImageMedia";
+import { getSiteSettings, getStaticPageMetadata, requireEnabledPage } from "@/payload/utilities/siteSettings";
 
 // --- Types ---
 type TeamGroup = {
@@ -259,30 +263,21 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata.About" });
-
-  return {
-    title: t("title"),
-    description: t("description"),
-    openGraph: {
-      title: t("ogTitle"),
-      description: t("ogDescription"),
-    },
-    twitter: {
-      title: t("twitterTitle"),
-      description: t("twitterDescription"),
-    },
-  };
+  const settings = await getSiteSettings(locale as TypedLocale);
+  return getStaticPageMetadata({ settings, page: "about", fallbackTitle: t("title"), fallbackDescription: t("description") });
 }
 
 export default async function About({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  await requireEnabledPage("about", locale as TypedLocale);
 
   // Parallel data fetching for performance
-  const [tHero, tTeam, groupedTeamMembers] = await Promise.all([
+  const [tHero, tTeam, groupedTeamMembers, aboutData] = await Promise.all([
     getTranslations("About.Hero"),
     getTranslations("About.Team"),
     getGroupedTeamMembers({ locale: locale as TypedLocale }),
+    getCachedGlobal("about-page", 1, locale as TypedLocale)() as Promise<AboutPageData>,
   ]);
 
   return (
@@ -302,6 +297,26 @@ export default async function About({ params }: Props) {
           </div>
         </Container>
       </div>
+      <Container className="mt-12 sm:mt-16">
+        <FadeIn>
+          <figure>
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[32px] bg-neutral-100 dark:bg-neutral-900">
+              <ImageMedia
+                resource={aboutData.studioImage}
+                fill
+                size="large"
+                imgClassName="object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 ring-inset dark:ring-white/10" />
+            </div>
+            {aboutData.imageCaption && (
+              <figcaption className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
+                {aboutData.imageCaption}
+              </figcaption>
+            )}
+          </figure>
+        </FadeIn>
+      </Container>
       <Impact />
       <Values />
 

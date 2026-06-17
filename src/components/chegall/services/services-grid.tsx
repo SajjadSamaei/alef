@@ -64,7 +64,7 @@ export function ServicesGrid({ data }: { data: ServicesPage }) {
       <GridItem
         className="col-span-1 row-span-1 sm:col-span-2 sm:row-span-2"
         media={data.architecture?.image}
-        title={t("architecture.title")}
+        title={data.architecture?.title || t("architecture.title")}
         linkTo="architecture"
       />
 
@@ -72,7 +72,7 @@ export function ServicesGrid({ data }: { data: ServicesPage }) {
       <GridItem
         className="col-span-1 row-span-1"
         media={data.interior?.image}
-        title={t("interior.title")}
+        title={data.interior?.title || t("interior.title")}
         linkTo="interior-design"
       />
 
@@ -80,7 +80,7 @@ export function ServicesGrid({ data }: { data: ServicesPage }) {
       <GridItem
         className="col-span-1 row-span-1"
         media={data.urban?.image}
-        title={t("urban.title")}
+        title={data.urban?.title || t("urban.title")}
         linkTo="urban-design"
       />
 
@@ -88,7 +88,7 @@ export function ServicesGrid({ data }: { data: ServicesPage }) {
       <GridItem
         className="col-span-1 row-span-1"
         media={data.supervision?.image}
-        title={t("supervision.title")}
+        title={data.supervision?.title || t("supervision.title")}
         linkTo="supervision"
       />
 
@@ -96,7 +96,7 @@ export function ServicesGrid({ data }: { data: ServicesPage }) {
       <GridItem
         className="col-span-1 row-span-1"
         media={data.restoration?.image}
-        title={t("restoration.title")}
+        title={data.restoration?.title || t("restoration.title")}
         linkTo="restoration"
       />
     </FadeIn>

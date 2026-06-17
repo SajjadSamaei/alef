@@ -17,6 +17,7 @@ import {
   GradientBackground,
   Gradient,
 } from "@/components/Layout/GradientBackground";
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 /* -------------------------------------------------------------------------- */
 /* BROWSER CHECK LOGIC                                                        */
@@ -51,7 +52,13 @@ function BrowserCheck() {
 /* ROOT LAYOUT INNER                                                          */
 /* -------------------------------------------------------------------------- */
 
-function RootLayoutInner({ children }: { children: React.ReactNode }) {
+function RootLayoutInner({
+  children,
+  settings,
+}: {
+  children: React.ReactNode;
+  settings: PublicSiteSettings;
+}) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
@@ -71,7 +78,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
     return (
       <>
         <BrowserCheck />
-        <main className="w-full flex-auto overflow-hidden bg-white">
+        <main className="w-full flex-auto overflow-hidden bg-white pt-[env(safe-area-inset-top)]">
           {children}
         </main>
         <Toaster />
@@ -107,8 +114,8 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
           <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-32 bg-gradient-to-t from-white to-transparent" />
 
           {/* Navbar Container: No top padding, matches Home Page */}
-          <Container className="relative z-20 pb-8 sm:pb-12">
-            <Navbar />
+          <Container className="relative z-20 pt-[env(safe-area-inset-top)] pb-8 sm:pb-12">
+            <Navbar settings={settings} />
           </Container>
         </div>
 
@@ -119,7 +126,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
         <div className="relative z-10 flex-auto">{children}</div>
 
         {/* Footer */}
-        <Footer />
+        <Footer settings={settings} />
       </main>
     </>
   );
@@ -129,12 +136,20 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
 /* MAIN EXPORT                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function RootLayout({ children }: { children: React.ReactNode }) {
+export function RootLayout({
+  children,
+  settings,
+}: {
+  children: React.ReactNode;
+  settings: PublicSiteSettings;
+}) {
   const pathname = usePathname();
 
   return (
     <ChegallProvider>
-      <RootLayoutInner key={pathname}>{children}</RootLayoutInner>
+      <RootLayoutInner key={pathname} settings={settings}>
+        {children}
+      </RootLayoutInner>
     </ChegallProvider>
   );
 }

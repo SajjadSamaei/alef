@@ -37,7 +37,13 @@ export function Mantras() {
 /* PARTNERS SECTION                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function Partners({ data }: { data: LandingPage["partners"] }) {
+export function Partners({
+  data,
+  title,
+}: {
+  data: LandingPage["partners"];
+  title?: string | null;
+}) {
   const t = useTranslations("Partners");
 
   if (!data || data.length === 0) return null;
@@ -67,7 +73,7 @@ export function Partners({ data }: { data: LandingPage["partners"] }) {
           {/* <Mantras /> */}
 
           <h2 className="font-display text-sm font-bold tracking-widest text-nowrap text-neutral-500 uppercase sm:text-start dark:text-neutral-400">
-            {t("title")}
+            {title || t("title")}
           </h2>
         </FadeIn>
 

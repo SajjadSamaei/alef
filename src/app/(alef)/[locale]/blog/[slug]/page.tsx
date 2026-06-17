@@ -19,6 +19,7 @@ import { FallbackToastNotifier } from "@/components/Blog/UI/FallbackToastNotifie
 import { TableOfContents } from "@/components/Blog/UI/TableOfContents"; // New Component
 import { extractHeadings } from "@/components/Blog/UI/TableOfContents/hooks/extractHeadings"; // New Utility
 import { RelatedPosts } from "@/components/Blog/UI/RelatedPosts/Component";
+import { requireEnabledPage } from "@/payload/utilities/siteSettings";
 
 const { BASE_URL } = process.env;
 const DEFAULT_LOCALE = localization.defaultLocale || "en";
@@ -58,6 +59,7 @@ type Args = {
 // --- Page Component ---
 export default async function Post({ params: paramsPromise }: Args) {
   const { slug = "", locale } = await paramsPromise;
+  await requireEnabledPage("blog", locale);
   const t = await getTranslations("Blog");
   const post = await queryPostBySlug({ slug, locale });
   const direction = getDirection(locale);

@@ -324,6 +324,7 @@
     "menu": "Menu",
     "team": "Team",
     "placeholder": "Search...",
+    "close": "Close search",
     "searching": "Searching...",
     "no-results": "No results found.",
     "try-different-keywords": "Try different keywords.",
@@ -381,35 +382,36 @@
   },
   "Metadata": {
     "Home": {
-      "title": "Alef Architecture Studio",
+      "title": "Alef Architecture Office",
       "imageAlt": "Official Website of Alef",
       "appleWebAppTitle": "Alef",
-      "titleTemplate": "%s | Alef Architecture Studio",
-      "titleDefault": "Alef Architecture Studio",
-      "description": "Alef, more than an architectural studio, offers a new perspective on 'designing for life'...",
+      "titleTemplate": "%s | Alef Architecture Office",
+      "titleDefault": "Alef Architecture Office",
+      "description": "Alef Architecture Office designs precise residential, commercial, interior, and urban projects shaped by place, climate, and everyday life.",
       "keywords": [
         "Architecture",
         "Design",
         "Bandar Abbas",
-        "Alef",
-        "Architectural Design"
+        "Alef Architecture Office",
+        "Iranian architecture",
+        "Interior design"
       ],
       "og": {
-        "title": "Alef Architecture Studio",
-        "description": "Alef, more than an architectural studio, offers a new perspective on 'designing for life'...",
+        "title": "Alef Architecture Office",
+        "description": "Architecture, interiors, and urban design shaped by context, light, material, and proportion.",
         "imageAlt": "Official Website of Alef"
       },
       "twitter": {
-        "title": "Alef Architecture Studio",
-        "description": "Alef, more than an architectural studio, offers a new perspective on 'designing for life'..."
+        "title": "Alef Architecture Office",
+        "description": "Architecture, interiors, and urban design shaped by context, light, material, and proportion."
       },
       "appleWebApp": {
-        "title": "Alef Architecture Studio"
+        "title": "Alef Architecture Office"
       }
     },
     "Work": {
       "title": "Our Work",
-      "description": "We are a leading architectural studio that designs unique and valuable projects, relying on years of experience, technical knowledge, and a commitment to quality.",
+      "description": "Explore residential, commercial, mixed-use, and courtyard projects by Alef Architecture Office.",
       "ogTitle": "Our Work",
       "ogDescription": "We are a leading studio in the architecture industry...",
       "twitterTitle": "Our Work",
@@ -417,11 +419,11 @@
     },
     "Process": {
       "title": "Our Process",
-      "description": "From initial vision to final execution, explore the methodology behind Alef's architectural projects."
+      "description": "See Alef Architecture Office's coordinated process from project strategy and concept design through technical development and site supervision."
     },
     "About": {
       "title": "About Us",
-      "description": "We are a leading studio in the architecture industry, designing and realizing unique projects based on years of experience and creativity.",
+      "description": "Learn about Alef Architecture Office, its design approach, leadership, and commitment to clear, contextual architecture.",
       "ogTitle": "About Us",
       "ogDescription": "We are a leading studio in the architecture industry...",
       "twitterTitle": "About Us",
@@ -429,7 +431,7 @@
     },
     "Services": {
       "title": "Services",
-      "description": "Expert architectural services including design, interiors, urban planning, and construction supervision.",
+      "description": "Architectural design, interiors, urban strategy, renovation, and construction supervision by Alef Architecture Office.",
       "ogTitle": "Services",
       "ogDescription": "We are a leading studio in the architecture industry...",
       "twitterTitle": "Services",
@@ -437,7 +439,7 @@
     },
     "Portfolio": {
       "title": "Portfolio | Projects & Case Studies",
-      "description": "Explore Alef's portfolio of architectural projects, renovations, and case studies. See how we design excellence."
+      "description": "Explore Alef Architecture Office's portfolio of residential, commercial, mixed-use, and courtyard projects."
     },
     "PortfolioProjects": {
       "title": "Projects",
@@ -469,7 +471,7 @@
     },
     "Contact": {
       "title": "Contact Us",
-      "description": "Get in touch with Alef Architecture Studio for project inquiries, collaborations, or general questions."
+      "description": "Contact Alef Architecture Office for architectural projects, design collaborations, and consultation."
     },
     "TeamPage": {
       "title": "Our Team",

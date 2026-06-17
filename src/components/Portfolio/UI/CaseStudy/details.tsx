@@ -13,92 +13,10 @@ import {
 import { AuthorImage } from "@/components/Blog/Media/BlogMedia/AuthorImage";
 import ProjectLocation from "@/components/Portfolio/UI/CaseStudy/map/project-location";
 import { ButtonCustomColor } from "@/components/chegall/studio/Button";
-import { useTranslations, useFormatter, useLocale } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { useDirection } from "@/utils/hooks/useDirection";
-import { ImageMedia } from "@/components/Blog/Media/ImageMedia";
-import { CheckIcon, MinusIcon } from "@heroicons/react/24/solid";
-import { toIndiaDigits } from "@/utils/helpers/strings-numbers";
-import { digitsEnToFa } from "@persian-tools/persian-tools";
 
 // --- Helper Components ---
-
-export function ProjectFeaturesTable({
-  features,
-}: {
-  features: CaseStudy["featuresBySection"];
-}) {
-  if (!features || features.length === 0) return null;
-
-  const locale = useLocale();
-  const direction = useDirection();
-  const t = useTranslations("CaseStudy");
-  const tFeatures = useTranslations("CaseStudy.Features.sections");
-  const format = useFormatter();
-
-  // Helper to localize numbers based on current locale
-  const formatNumber = (num: number) => {
-    const formatted = format.number(num);
-    return locale === "fa" ? digitsEnToFa(formatted) : formatted;
-  };
-
-  return (
-    <div className="w-full">
-      <table className="w-full text-center">
-        {features.map((sectionGroup, sectionIndex) => (
-          <tbody key={sectionIndex} className="group">
-            {/* Section Header */}
-            <tr>
-              <th colSpan={2} className="pt-6 pb-2 text-start">
-                <div className="inline-block rounded-lg bg-neutral-200/50 px-3 py-1 text-sm font-bold text-neutral-700 dark:bg-white/10 dark:text-neutral-200">
-                  {sectionGroup.customSectionName ||
-                    (sectionGroup.sectionType
-                      ? tFeatures(sectionGroup.sectionType)
-                      : undefined) ||
-                    sectionGroup.sectionType?.replace(/_/g, " ").toUpperCase()}
-                </div>
-              </th>
-            </tr>
-            {/* Rows */}
-            {sectionGroup.features?.map((feature, featureIndex) => (
-              <tr
-                key={featureIndex}
-                className="border-b border-neutral-200/50 last:border-0 dark:border-white/5"
-              >
-                <td className="py-3 text-start text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                  {feature.name}
-                </td>
-                <td className="py-3 text-end text-sm text-neutral-900 dark:text-neutral-200">
-                  {feature.valueType === "boolean" ? (
-                    <div className="flex justify-end">
-                      {feature.booleanValue ? (
-                        <CheckIcon className="h-5 w-5 text-neutral-900 dark:text-white" />
-                      ) : (
-                        <MinusIcon className="h-4 w-4 text-neutral-400" />
-                      )}
-                    </div>
-                  ) : feature.valueType === "sqm" ? (
-                    <span className="flex items-center justify-end gap-1">
-                      {/* Use localized number formatter */}
-                      {formatNumber(feature.numberValue || 0)}
-                      <span className="text-xs text-neutral-500">
-                        {locale === "fa" ? "متر مربع" : "m²"}
-                      </span>
-                    </span>
-                  ) : feature.valueType === "number" ? (
-                    formatNumber(feature.numberValue || 0)
-                  ) : (
-                    // Text values are already localized by Payload if configured correctly
-                    feature.textValue
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        ))}
-      </table>
-    </div>
-  );
-}
 
 function GoolgeMapButton({
   latitude,
@@ -209,13 +127,11 @@ export function Details({ post }: { post: CaseStudy }): JSX.Element {
   const {
     projectType,
     credits,
-    technicalSpecs,
     metrics,
     location,
     client,
     yearCompleted,
-    projectDrawings,
-    featuresBySection,
+    overviewDetails,
   } = post || {};
 
   return (
@@ -296,68 +212,19 @@ export function Details({ post }: { post: CaseStudy }): JSX.Element {
 
               {/* Client */}
               {client && <StatListItem label={t("client")} value={client} />}
+
+              {overviewDetails?.map((item) =>
+                item.label && item.value ? (
+                  <StatListItem
+                    key={item.id || `${item.label}-${item.value}`}
+                    label={item.label}
+                    value={item.value}
+                  />
+                ) : null,
+              )}
             </StatList>
           </AccordionContent>
         </AccordionItem>
-
-        {/* 2. TECHNICAL SPECS (Materials & Systems) */}
-        {(technicalSpecs?.materials || technicalSpecs?.structureSystem) && (
-          <AccordionItem
-            value="specs"
-            className="rounded-[32px] border border-neutral-200 bg-neutral-50 px-6 py-2 dark:border-white/10 dark:bg-white/5"
-          >
-            <AccordionTrigger className="text-lg font-semibold text-neutral-900 dark:text-white">
-              {t("specifications")}
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-6">
-              <div className="flex flex-col gap-6">
-                {/* Materials List */}
-                {technicalSpecs.materials &&
-                  technicalSpecs.materials.length > 0 && (
-                    <div>
-                      <h4 className="mb-2 text-sm font-medium tracking-wide text-neutral-500 uppercase">
-                        {t("materials")}
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {technicalSpecs.materials.map((m, i) => (
-                          <span
-                            key={i}
-                            className="inline-block rounded-md bg-white px-2 py-1 text-sm text-neutral-700 shadow-sm ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:ring-neutral-700"
-                          >
-                            {m.material}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                {/* Structural System */}
-                {technicalSpecs.structureSystem && (
-                  <div className="border-t border-neutral-200/50 pt-4 dark:border-white/5">
-                    <h4 className="mb-1 text-sm font-medium tracking-wide text-neutral-500 uppercase">
-                      {t("structure")}
-                    </h4>
-                    <p className="text-base text-neutral-800 dark:text-neutral-200">
-                      {technicalSpecs.structureSystem}
-                    </p>
-                  </div>
-                )}
-
-                {/* Sustainability */}
-                {technicalSpecs.sustainability && (
-                  <div className="border-t border-neutral-200/50 pt-4 dark:border-white/5">
-                    <h4 className="mb-1 text-sm font-medium tracking-wide text-neutral-500 uppercase">
-                      {t("sustainability")}
-                    </h4>
-                    <p className="text-base text-neutral-800 dark:text-neutral-200">
-                      {technicalSpecs.sustainability}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        )}
 
         {/* 3. DRAWINGS */}
         {/* {projectDrawings && projectDrawings.length > 0 && (
@@ -449,20 +316,6 @@ export function Details({ post }: { post: CaseStudy }): JSX.Element {
             )}
           </AccordionContent>
         </AccordionItem>
-
-        {featuresBySection && featuresBySection.length > 0 && (
-          <AccordionItem
-            value="detailed-features"
-            className="rounded-[32px] border border-neutral-200 bg-neutral-50 px-6 py-2 dark:border-white/10 dark:bg-white/5"
-          >
-            <AccordionTrigger className="text-lg font-semibold text-neutral-900 dark:text-white">
-              {t("detailedFeatures") || "Detailed Schedule"}
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-6">
-              <ProjectFeaturesTable features={featuresBySection} />
-            </AccordionContent>
-          </AccordionItem>
-        )}
 
         {/* 5. MAP */}
         <AccordionItem

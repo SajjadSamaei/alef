@@ -23,7 +23,7 @@ import { revalidateProject, revalidateDelete } from "./hooks/revalidateProject";
 import { generatePreviewPath } from "@/payload/utilities/generatePreviewPath";
 
 const isCustomSection = (
-  _: any,
+  _: unknown,
   siblingData: Partial<{ sectionType: string }>,
 ) => siblingData.sectionType === "custom";
 
@@ -41,7 +41,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
   },
   admin: {
     defaultColumns: ["title", "projectStatus", "publishedAt"],
-    group: "Agency",
+    group: "پروژه‌ها و تیم",
     useAsTitle: "title",
     livePreview: {
       url: ({ data, locale }) => {
@@ -62,7 +62,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
         // TAB 1: OVERVIEW (The "Hook")
         // ==============================================
         {
-          label: "Overview",
+          label: "معرفی پروژه",
           fields: [
             {
               name: "title",
@@ -144,7 +144,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
         // TAB 2: NARRATIVE & MEDIA (The "Story")
         // ==============================================
         {
-          label: "Narrative & Media",
+          label: "روایت و تصاویر",
           fields: [
             {
               name: "details",
@@ -232,7 +232,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
         // TAB 3: SPECS & CREDITS (The "Facts")
         // ==============================================
         {
-          label: "Specs & Credits",
+          label: "مشخصات و عوامل",
           fields: [
             // --- Location & Client ---
             {
@@ -322,11 +322,59 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
                 },
               ],
             },
-            // --- Technical Details (Materiality & Systems) ---
+            {
+              name: "overviewDetails",
+              label: {
+                en: "Additional overview information",
+                fa: "اطلاعات تکمیلی معرفی پروژه",
+              },
+              labels: {
+                singular: {
+                  en: "Additional item",
+                  fa: "اطلاعات تکمیلی",
+                },
+                plural: {
+                  en: "Additional items",
+                  fa: "اطلاعات تکمیلی",
+                },
+              },
+              type: "array",
+              admin: {
+                description: {
+                  en: "Optional label and value rows shown inside Project Highlights.",
+                  fa: "اختیاری؛ برای افزودن اطلاعات دلخواه به بخش نکات برجسته پروژه، مانند تعداد طبقات یا وضعیت اجرا.",
+                },
+              },
+              fields: [
+                {
+                  name: "label",
+                  label: {
+                    en: "Label",
+                    fa: "عنوان",
+                  },
+                  type: "text",
+                  localized: true,
+                  required: true,
+                },
+                {
+                  name: "value",
+                  label: {
+                    en: "Value",
+                    fa: "مقدار یا توضیح",
+                  },
+                  type: "text",
+                  localized: true,
+                  required: true,
+                },
+              ],
+            },
             {
               name: "technicalSpecs",
               label: "Materiality & Systems",
               type: "group",
+              admin: {
+                hidden: true,
+              },
               fields: [
                 {
                   name: "materials",
@@ -372,8 +420,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
               label: "Detailed Schedules / Features Table",
               dbName: "proj_feat_sec",
               admin: {
-                description:
-                  "Use this for flexible tables like Area Schedules, Unit Mixes, or detailed amenity lists.",
+                hidden: true,
               },
               fields: [
                 {
@@ -395,7 +442,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
                   name: "customSectionName",
                   label: "Custom Name",
                   type: "text",
-                  localized: true, // <--- Localized
+                  localized: true,
                   admin: {
                     condition: isCustomSection,
                   },
@@ -411,7 +458,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
                       label: "Item Name",
                       type: "text",
                       required: true,
-                      localized: true, // <--- Localized
+                      localized: true,
                     },
                     {
                       name: "valueType",
@@ -426,12 +473,11 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
                         { label: "Area (m²)", value: "sqm" },
                       ],
                     },
-                    // Value Fields (Conditionals)
                     {
                       name: "textValue",
                       label: "Value",
                       type: "text",
-                      localized: true, // <--- Localized
+                      localized: true,
                       admin: {
                         condition: (_, sibling) => sibling.valueType === "text",
                       },
@@ -440,8 +486,6 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
                       name: "booleanValue",
                       label: "Is Available?",
                       type: "checkbox",
-                      // Usually booleans (True/False) are facts and don't need localization,
-                      // but you can add localized: true if the state differs by language.
                       admin: {
                         condition: (_, sibling) =>
                           sibling.valueType === "boolean",
@@ -451,7 +495,6 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
                       name: "numberValue",
                       label: "Value",
                       type: "number",
-                      // Numbers are usually universal. Formatting handles the locale.
                       admin: {
                         condition: (_, sibling) =>
                           sibling.valueType === "number" ||
@@ -551,7 +594,7 @@ export const CaseStudies: CollectionConfig<"case-studies"> = {
         // ==============================================
         {
           name: "meta",
-          label: "SEO",
+          label: "سئو و انتشار",
           fields: [
             OverviewField({
               titlePath: "meta.title",

@@ -29,7 +29,7 @@ export function Testimonial({ data }: { data: LandingPage["testimonial"] }) {
                     : "before:content-['“'] after:content-['”']",
                 )}
               >
-                {t("quote")}
+                {data?.quote || t("quote")}
               </p>
             </blockquote>
             <figcaption className="mx-auto mt-10 flex max-w-72 items-center justify-center gap-x-4">
@@ -45,10 +45,10 @@ export function Testimonial({ data }: { data: LandingPage["testimonial"] }) {
 
               <div className="text-start">
                 <h3 className="text-base/7 font-semibold tracking-tight text-neutral-950">
-                  {t("author.name")}
+                  {data?.authorName || t("author.name")}
                 </h3>
                 <p className="text-appletextgray text-sm/6 font-semibold text-nowrap">
-                  {t("author.role")}
+                  {data?.authorRole || t("author.role")}
                 </p>
               </div>
             </figcaption>

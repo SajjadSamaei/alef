@@ -33,7 +33,8 @@ export const generatePlaceholder: CollectionBeforeChangeHook = async ({
 
 export const TeamMedia: CollectionConfig = {
   admin: {
-    group: "General",
+    group: "رسانه‌ها",
+    description: "تصاویر اعضای تیم",
   },
   slug: "team-media",
   access: {

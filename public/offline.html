@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#111111" />
+    <title>دفتر معماری الف | عدم اتصال به شبکه</title>
+    <style>
+      /* Reset & Base Variables */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        background-color: #ffffff;
+        color: #09090b;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        overflow-x: clip;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Main Structural Container */
+      main {
+        position: relative;
+        display: flex;
+        min-height: 100vh;
+        flex-col: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        padding-top: calc(16px + env(safe-area-inset-top));
+        overflow: hidden;
+      }
+
+      /* 1. Background Ambient Gradient Mimicking your <Gradient /> component */
+      .gradient-bg {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 0;
+        border-radius: 32px;
+        background: radial-gradient(
+          circle at 50% -20%,
+          #ffedd5 0%,
+          #ffffff 70%
+        );
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+        z-index: 1;
+      }
+
+      /* Fade effect to white at the bottom */
+      .gradient-fade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 128px;
+        background: linear-gradient(to top, #ffffff, transparent);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      /* 2. Content Box Frame matching PlusGrid Layout */
+      .content-container {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 560px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 32px 24px;
+      }
+
+      /* Background Architectural Text Watermark */
+      .watermark {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(6rem, 15vw, 12rem);
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        color: rgba(9, 9, 11, 0.04);
+        user-select: none;
+        pointer-events: none;
+        z-index: 1;
+        font-family: sans-serif;
+      }
+
+      /* Message Wrapper */
+      .message-box {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+      }
+
+      img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        margin-bottom: 24px;
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.02));
+      }
+
+      h1 {
+        font-size: clamp(24px, 5vw, 36px);
+        font-weight: 500;
+        color: #09090b;
+        letter-spacing: -0.025em;
+        margin-bottom: 12px;
+      }
+
+      p.farsi-message {
+        font-size: 18px;
+        color: #71717a;
+        line-height: 1.8;
+        margin-bottom: 8px;
+      }
+
+      p.english-message {
+        font-size: 14px;
+        color: #a1a1aa;
+        font-family: inherit;
+        letter-spacing: -0.01em;
+      }
+
+      /* Action Buttons Block */
+      .actions {
+        position: relative;
+        z-index: 2;
+        margin-top: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      /* Buttons Common Base Styling */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 28px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+      }
+
+      /* Primary: Try Again */
+      .btn-primary {
+        background-color: #09090b;
+        color: #ffffff;
+      }
+      .btn-primary:hover {
+        background-color: #27272a;
+      }
+
+      /* Secondary: Go Back */
+      .btn-secondary {
+        background-color: #ffffff;
+        color: #09090b;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+      .btn-secondary:hover {
+        background-color: #f4f4f5;
+      }
+
+      /* SVG Icon Scaling */
+      .btn svg {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2.25;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <!-- Background Ambient Graphics -->
+      <div class="gradient-bg"></div>
+      <div class="gradient-fade"></div>
+
+      <!-- Core Display Block -->
+      <div class="content-container">
+        <!-- Architectural Text Watermark -->
+        <div class="watermark">Offline</div>
+
+        <div class="message-box">
+          <img src="/android-chrome-192x192.png" alt="Alef Logo" />
+
+          <h1>ارتباط با شبکه قطع شد</h1>
+
+          <p class="farsi-message">
+            این صفحه هنوز در دستگاه شما ذخیره نشده است. پس از برقراری اینترنت
+            دوباره تلاش کنید.
+          </p>
+
+          <p class="english-message" lang="en" dir="ltr">
+            This page is not available offline yet.
+          </p>
+        </div>
+
+        <!-- Cohesive Action Targets -->
+        <div class="actions">
+          <!-- Primary Call to Action -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="location.reload()"
+          >
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+              ></path>
+            </svg>
+            <span>تلاش دوباره / Retry</span>
+          </button>
+
+          <!-- Secondary Navigation Escape -->
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="window.history.back()"
+          >
+            <!-- Clean custom RTL directional arrow handling natively mirrored -->
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              ></path>
+            </svg>
+            <span>بازگشت / Go Back</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

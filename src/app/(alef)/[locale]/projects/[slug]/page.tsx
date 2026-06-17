@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { getDirection } from "@/utils/hooks/useDirection";
 import { CaseStudy } from "@/src/payload-types";
 import { FallbackToastNotifier } from "@/components/Blog/UI/FallbackToastNotifier";
+import { requireEnabledPage } from "@/payload/utilities/siteSettings";
 
 const { BASE_URL } = process.env;
 const DEFAULT_LOCALE = localization.defaultLocale || "en";
@@ -52,6 +53,7 @@ type Args = {
 export default async function CaseStudies({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode();
   const { slug = "", locale } = await paramsPromise;
+  await requireEnabledPage("portfolio", locale);
   const siteLocale = await getLocale();
   const t = await getTranslations("Blog");
   const tGlobal = await getTranslations("Global");

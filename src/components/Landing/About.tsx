@@ -6,9 +6,9 @@ import { ImageMedia } from "@/components/Blog/Media/ImageMedia";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/src/i18n/routing";
 import { getDirection } from "@/utils/hooks/useDirection";
-import type { Media } from "@/src/payload-types"; 
+import type { LandingPage } from "@/src/payload-types";
 
-export function AboutUs({ image }: { image?: number | Media | null }) {
+export function AboutUs({ data }: { data?: LandingPage["about"] }) {
   const t = useTranslations("AboutUs");
   const locale = useLocale();
   const direction = getDirection(locale);
@@ -18,18 +18,18 @@ export function AboutUs({ image }: { image?: number | Media | null }) {
       <FadeIn className="grid grid-cols-1 gap-x-32 gap-y-16 xl:grid-cols-5">
         <SectionIntroduction
           className="sm:col-span-2"
-          eyebrow={t("eyebrow")}
-          title={t("title")}
+            eyebrow={data?.eyebrow || t("eyebrow")}
+            title={data?.title || t("title")}
         >
           <p className="paragraph-style-pretty text-justify">
-            {t("description")}
+            {data?.description || t("description")}
           </p>
           <div className="mt-6 flex justify-start text-base/7 font-semibold">
             <Link
               href="/about"
               className="text-nirvanaDarkBlue hover:text-nirvanaLightBlue rounded-full transition-colors"
             >
-              {t("learnMoreLink")}
+              {data?.learnMoreLink || t("learnMoreLink")}
               <span className="top-px ms-1" aria-hidden="true">
                 {direction === "rtl" ? "›" : "›"}
               </span>
@@ -40,7 +40,7 @@ export function AboutUs({ image }: { image?: number | Media | null }) {
         {/* ✅ Image Container */}
         <div className="relative min-h-[300px] w-full overflow-hidden rounded-[40px] bg-neutral-950 sm:col-span-2 xl:col-span-3">
           <ImageMedia
-            resource={image}
+            resource={data?.image}
             fill
             // Use 'large' size if available for crispness, or 'card' for speed
             size="large" 

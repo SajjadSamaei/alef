@@ -1,7 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import { useTranslations, useFormatter } from "next-intl";
+import { useTranslations } from "next-intl";
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 function Office({
   name,
@@ -35,22 +36,20 @@ function Office({
 
 export function Offices({
   invert = false,
+  settings,
   ...props
 }: {
   invert?: boolean;
+  settings: PublicSiteSettings;
   [key: string]: any;
 }) {
   const t = useTranslations("Offices");
-  const format = useFormatter();
-
   return (
     <ul role="list" {...props}>
       <li>
-        <Office name={t("bandarAbbas.name")} invert={invert}>
-          <span className="block">{t("bandarAbbas.line1")}</span>
-          <span className="block">
-            {t("bandarAbbas.line2", { number: format.number(5) })}
-          </span>
+        <Office name={settings.contact?.officeName || t("bandarAbbas.name")} invert={invert}>
+          <span className="block">{settings.contact?.addressLine1 || t("bandarAbbas.line1")}</span>
+          <span className="block">{settings.contact?.addressLine2 || t("bandarAbbas.line2", { number: 5 })}</span>
         </Office>
       </li>
     </ul>

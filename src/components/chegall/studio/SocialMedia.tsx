@@ -6,30 +6,24 @@ import { useTranslations } from "next-intl";
 
 // Use simple SVG for Instagram to match style if needed, or keep FaInstagram
 import { FaInstagram } from "react-icons/fa";
-
-export const socialMediaProfiles = [
-  { key: "phone", href: "tel:+989177609917", icon: MdPhone },
-  {
-    key: "instagram",
-    href: "https://www.instagram.com/alef_group",
-    icon: FaInstagram,
-  }, // Updated to 'alef_group' placeholder
-  { key: "whatsapp", href: "https://wa.me/989177609917", icon: FaWhatsapp },
-  {
-    key: "telegram",
-    href: "https://t.me/rasooldabirinasab",
-    icon: FaTelegramPlane,
-  },
-];
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 export function SocialMedia({
   className,
   invert = false,
+  settings,
 }: {
   className?: string;
   invert?: boolean;
+  settings: PublicSiteSettings;
 }) {
   const t = useTranslations("SocialMedia");
+  const socialMediaProfiles = [
+    settings.contact?.phone && { key: "phone", href: `tel:${settings.contact.phone}`, icon: MdPhone },
+    settings.social?.instagram && { key: "instagram", href: settings.social.instagram, icon: FaInstagram },
+    settings.social?.whatsapp && { key: "whatsapp", href: settings.social.whatsapp, icon: FaWhatsapp },
+    settings.social?.telegram && { key: "telegram", href: settings.social.telegram, icon: FaTelegramPlane },
+  ].filter(Boolean) as Array<{ key: string; href: string; icon: typeof MdPhone }>;
 
   return (
     <ul

@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import {
+  getSiteSettings,
+  getStaticPageMetadata,
+  requireEnabledPage,
+} from "@/payload/utilities/siteSettings";
 import { Suspense } from "react";
 import { Container } from "@/components/chegall/studio/Container";
 import { FadeIn, FadeInStagger } from "@/components/chegall/studio/FadeIn";
@@ -33,14 +38,19 @@ export async function generateMetadata(props: Args): Promise<Metadata> {
   const { locale } = params;
   const t = await getTranslations({ locale, namespace: "Blog.Metadata" });
   const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
+  const settings = await getSiteSettings(locale);
+  const metadata = getStaticPageMetadata({
+    settings,
+    page: "blog",
+    fallbackTitle: t("title"),
+    fallbackDescription: t("description"),
+  });
 
   return {
-    title: t("title"),
-    description: t("description"),
+    ...metadata,
     openGraph: {
-      title: t("title"),
+      ...metadata.openGraph,
       locale: ogLocale,
-      description: t("description"),
     },
   };
 }
@@ -132,6 +142,7 @@ export default async function Page(props: Args) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { locale } = params;
+  await requireEnabledPage("blog", locale as TypedLocale);
   const t = await getTranslations("Blog");
   const tCommon = await getTranslations("Common"); // For generic "See More" etc.
 

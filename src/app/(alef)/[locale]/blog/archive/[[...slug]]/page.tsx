@@ -19,6 +19,7 @@ import { BlogArchiveUI } from "@/components/Blog/UI/Archive/BlogArchiveUI";
 import { BlogFilterProvider } from "@/components/Blog/UI/Archive/Filters/FilterProvider";
 import { ArchiveFilterRibbon } from "@/components/Blog/UI/Archive/Filters/filter-ribbon";
 import QueryProvider from "@/payload/utilities/stores/QueryProvider";
+import { requireEnabledPage } from "@/payload/utilities/siteSettings";
 
 // export const dynamic = "force-static";
 // export const revalidate = 600;
@@ -227,6 +228,7 @@ export default async function Page(props: Args) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { slug, locale } = await params;
+  await requireEnabledPage("blog", locale);
   const { q, page } = searchParams; // Destructure page here
   const pageNumber = parseInt((page as string) || "1");
 

@@ -8,6 +8,7 @@ import configPromise from "@payload-config";
 import { Link } from "@/src/i18n/routing";
 import { ContainerCard } from "../chegall/studio/Container";
 import { getDirection } from "@/utils/hooks/useDirection";
+import type { LandingPage } from "@/src/payload-types";
 
 type Locale = (typeof locales)[number];
 
@@ -40,10 +41,11 @@ async function getProjects(locale: Locale) {
 
 type Props = {
   locale: Locale;
+  content?: LandingPage["projectsCopy"];
 };
 
 // 4. Main Page Component
-export default async function ProjectShowcase({ locale }: Props) {
+export default async function ProjectShowcase({ locale, content }: Props) {
   // Fetch Data in Parallel
   const [projects] = await Promise.all([getProjects(locale)]);
 
@@ -54,18 +56,18 @@ export default async function ProjectShowcase({ locale }: Props) {
     <ContainerCard id="projects" className="mt-24 sm:mt-32 lg:mt-40">
       <SectionIntroduction
         className="mx-auto max-w-2xl text-center"
-        eyebrow={t("Projects.eyebrow")}
-        title={t("Projects.title")}
+        eyebrow={content?.eyebrow || t("Projects.eyebrow")}
+        title={content?.title || t("Projects.title")}
       >
-        <p>{t("Projects.description")}</p>
+        <p>{content?.description || t("Projects.description")}</p>
         <div className="mt-6 flex justify-center text-base/7 font-semibold">
           {/* Use the localized Link component */}
           <Link
-            href="/portfolio/projects"
-            aria-label={t("Projects.viewAll")}
+            href="/portfolio"
+            aria-label={content?.viewAll || t("Projects.viewAll")}
             className="text-nirvanaDarkBlue hover:text-nirvanaLightBlue rounded-full transition-colors"
           >
-            {t("Projects.viewAll")}
+            {content?.viewAll || t("Projects.viewAll")}
             {/* Use 'ms-1' (margin-start) for RTL/LTR safety */}
             <span className="top-px ms-1" aria-hidden="true">
               {/* Conditionally render the arrow direction */}

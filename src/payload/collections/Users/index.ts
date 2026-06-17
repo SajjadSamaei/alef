@@ -1,10 +1,6 @@
 import type { CollectionConfig } from "payload";
-// import { checkRole } from "@/payload/access/checkRole";
-import { authenticated } from "@/payload/access/authenticated";
-import { isUserAdmin } from "@/payload/access/whoHasAccess";
 import { adminOnly } from "@/payload/access/adminOnly";
 import { adminOnlyFieldAccess } from "@/payload/access/adminOnlyFieldAccess";
-import { publicAccess } from "@/payload/access/publicAccess";
 import { adminOrSelf } from "@/payload/access/adminOrSelf";
 import { checkRole } from "@/payload/access/utilities";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
@@ -12,28 +8,44 @@ import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 export const Users: CollectionConfig = {
   slug: "users",
   access: {
-    admin: ({ req: { user } }) => checkRole(["admin"], user),
-    create: publicAccess,
+    admin: ({ req: { user } }) =>
+      checkRole(["admin", "management"], user),
+    create: adminOnly,
     delete: adminOnly,
     read: adminOrSelf,
     update: adminOrSelf,
   },
+  labels: {
+    singular: "کاربر",
+    plural: "کاربران پنل",
+  },
   admin: {
-    group: "General",
+    group: "مدیریت",
     defaultColumns: ["name", "email", "roles"],
+    hidden: ({ user }) => !user?.roles?.includes("admin"),
     useAsTitle: "name",
+    description:
+      "حساب‌های ورود به پنل مدیریت. نقش کاربران فقط توسط مدیر اصلی قابل تغییر است.",
   },
   auth: {
     tokenExpiration: 1209600,
+    loginWithUsername: {
+      allowEmailLogin: true,
+      requireEmail: true,
+      requireUsername: true,
+    },
   },
   fields: [
     {
       name: "name",
+      label: "نام و نام خانوادگی",
       type: "text",
       localized: true,
+      required: true,
     },
     {
       name: "roles",
+      label: "سطح دسترسی",
       type: "select",
       access: {
         create: adminOnlyFieldAccess,
@@ -47,18 +59,22 @@ export const Users: CollectionConfig = {
       },
       options: [
         {
-          label: "admin",
+          label: "مدیر اصلی",
           value: "admin",
         },
         {
-          label: "editor",
+          label: "ویرایشگر",
           value: "editor",
         },
         {
-          label: "management",
+          label: "مدیریت شرکت",
           value: "management",
         },
       ],
+      admin: {
+        description:
+          "مدیریت شرکت به محتوای سایت دسترسی دارد؛ تغییر حساب‌ها و نقش‌ها در اختیار مدیر اصلی است.",
+      },
     },
   ],
 };

@@ -3,8 +3,8 @@ export default function robots() {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/management/", "/manifest.webmanifest", "/admin"],
+      disallow: ["/management/", "/payload/", "/api/"],
     },
-    sitemap: "https://chegall.com/sitemap.xml",
+    sitemap: "https://alef-office.ir/sitemap.xml",
   };
 }

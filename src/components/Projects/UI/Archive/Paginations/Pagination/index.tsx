@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Pagination as PaginationComponent,
@@ -7,21 +7,22 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import React from 'react'
+} from "@/components/ui/pagination";
+import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "@/src/i18n/routing";
+import React from "react";
 
 export const Pagination: React.FC<{
-  page: number
-  totalPages: number
+  page: number;
+  totalPages: number;
   // setPageAction: (page: number) => void
 }> = (props) => {
-  const { page, totalPages } = props
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const hasNextPage = page < totalPages
-  const hasPrevPage = page > 1
+  const { page, totalPages } = props;
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const hasNextPage = page < totalPages;
+  const hasPrevPage = page > 1;
 
   return (
     <div className="my-12">
@@ -33,9 +34,9 @@ export const Pagination: React.FC<{
               onClick={
                 hasPrevPage
                   ? () => {
-                      const newParams = new URLSearchParams(searchParams)
-                      newParams.set('page', (page - 1).toString())
-                      router.push(`${pathname}?${newParams.toString()}`)
+                      const newParams = new URLSearchParams(searchParams);
+                      newParams.set("page", (page - 1).toString());
+                      router.push(`${pathname}?${newParams.toString()}`);
                     }
                   : undefined
               }
@@ -45,9 +46,9 @@ export const Pagination: React.FC<{
           <PaginationItem>
             <PaginationLink
               onClick={() => {
-                const newParams = new URLSearchParams(searchParams)
-                newParams.set('page', page.toString())
-                router.push(`${pathname}?${newParams.toString()}`)
+                const newParams = new URLSearchParams(searchParams);
+                newParams.set("page", page.toString());
+                router.push(`${pathname}?${newParams.toString()}`);
               }}
             >
               {page}
@@ -57,9 +58,9 @@ export const Pagination: React.FC<{
             <PaginationItem>
               <PaginationLink
                 onClick={() => {
-                  const newParams = new URLSearchParams(searchParams)
-                  newParams.set('page', (page + 1).toString())
-                  router.push(`${pathname}?${newParams.toString()}`)
+                  const newParams = new URLSearchParams(searchParams);
+                  newParams.set("page", (page + 1).toString());
+                  router.push(`${pathname}?${newParams.toString()}`);
                 }}
               >
                 {page + 1}
@@ -72,9 +73,9 @@ export const Pagination: React.FC<{
               onClick={
                 hasNextPage
                   ? () => {
-                      const newParams = new URLSearchParams(searchParams)
-                      newParams.set('page', (page + 1).toString())
-                      router.push(`${pathname}?${newParams.toString()}`)
+                      const newParams = new URLSearchParams(searchParams);
+                      newParams.set("page", (page + 1).toString());
+                      router.push(`${pathname}?${newParams.toString()}`);
                     }
                   : undefined
               }
@@ -83,5 +84,5 @@ export const Pagination: React.FC<{
         </PaginationContent>
       </PaginationComponent>
     </div>
-  )
-}
+  );
+};

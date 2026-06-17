@@ -1,8 +1,7 @@
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
+import { TypedLocale } from "payload";
 import { Footer } from "@/components/chegall/studio/Footer";
 import { Container } from "@/components/chegall/studio/Container";
-import { FadeIn, FadeInStagger } from "@/components/chegall/studio/FadeIn";
+import { FadeIn } from "@/components/chegall/studio/FadeIn";
 import { AboutUs } from "@/components/Landing/About";
 import { Partners } from "@/components/Landing/Partners";
 import Hero from "@/components/Landing/hero";
@@ -16,6 +15,11 @@ import { locales, defaultLocale } from "@/src/i18n/i18n.config";
 import { Suspense } from "react";
 import { ServicesGrid } from "@/components/Landing/ServicesGrid";
 import { Media, LandingPage } from "@/src/payload-types";
+import { getCachedGlobal } from "@/payload/utilities/getGlobals";
+import {
+  getSiteSettings,
+  getStaticPageMetadata,
+} from "@/payload/utilities/siteSettings";
 
 type Locale = (typeof locales)[number];
 
@@ -52,16 +56,6 @@ const getUrl = (
   return media.url;
 };
 
-async function getLandingPageData(): Promise<LandingPage> {
-  const payload = await getPayload({ config: configPromise });
-
-  // Cast the result to LandingPage type
-  return (await payload.findGlobal({
-    slug: "landing-page",
-    depth: 1, // Depth 1 is required to get image URLs
-  })) as LandingPage;
-}
-
 // 1. Generate static params for 'en' and 'fa'
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -76,31 +70,58 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "Metadata.Home" });
   const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
   const i18nMeta = await withI18nMetadata(params);
-  const landingData = await getLandingPageData();
+  const [landingData, siteSettings] = await Promise.all([
+    getCachedGlobal("landing-page", 1, locale as TypedLocale)() as Promise<LandingPage>,
+    getSiteSettings(locale as TypedLocale),
+  ]);
 
   const masterImage = landingData.metadata?.metaImage;
+  const managedMetadata = getStaticPageMetadata({
+    settings: siteSettings,
+    page: "home",
+    fallbackTitle: t("title"),
+    fallbackDescription: t("description"),
+  });
+  const managedTitle =
+    typeof managedMetadata.title === "string"
+      ? managedMetadata.title
+      : t("title");
+  const managedDescription =
+    managedMetadata.description || t("description");
+  const managedImage =
+    managedMetadata.openGraph &&
+    "images" in managedMetadata.openGraph &&
+    Array.isArray(managedMetadata.openGraph.images)
+      ? managedMetadata.openGraph.images[0]
+      : undefined;
+  const managedImageURL =
+    typeof managedImage === "string"
+      ? managedImage
+      : managedImage && "url" in managedImage
+        ? managedImage.url
+        : undefined;
 
   return {
     title: {
-      absolute: t("title"),
+      absolute: managedTitle,
     },
     category: "business",
-    creator: "Sajjad Samaei",
+    creator: "Alef Architecture Office",
     generator: "Next.js",
     keywords: t.raw("keywords"),
-    description: t("description"),
+    description: managedDescription,
     ...i18nMeta,
     openGraph: {
-      title: t("title"),
-      description: t("description"),
+      title: managedTitle,
+      description: managedDescription,
       url:
         locale === defaultLocale
-          ? "https://chegall.com"
-          : `https://chegall.com/${locale}`,
-      siteName: "Chegall",
+          ? "https://alef-office.ir"
+          : `https://alef-office.ir/${locale}`,
+      siteName: siteSettings.seo?.siteName || "Alef Architecture Office",
       images: [
         {
-          url: getUrl(masterImage, "og"),
+          url: managedImageURL || getUrl(masterImage, "og"),
           width: 1200,
           height: 630,
           alt: t("imageAlt"),
@@ -117,9 +138,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: t("title"),
-      description: t("description"),
-      images: [getUrl(masterImage, "twitter")],
+      title: managedTitle,
+      description: managedDescription,
+      images: [managedImageURL || getUrl(masterImage, "twitter")],
     },
     appleWebApp: {
       capable: true,
@@ -134,38 +155,46 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const payload = await getPayload({ config: configPromise });
-  const landingData = await payload.findGlobal({
-    slug: "landing-page",
-    depth: 1, // Ensure we get media objects, not just IDs
-  });
+  const [landingData, siteSettings] = await Promise.all([
+    getCachedGlobal("landing-page", 1, locale as TypedLocale)() as Promise<LandingPage>,
+    getSiteSettings(locale as TypedLocale),
+  ]);
 
   return (
     <div className="overflow-hidden bg-white">
-      <Hero />
+      <Hero content={landingData.hero} settings={siteSettings} />
       {/* <LandingBanner /> */}
       <div className="section-padding" />
       <FadeIn>
         <Suspense>
-          <ProjectShowcase locale={locale as any} />
+          <ProjectShowcase
+            locale={locale as any}
+            content={landingData.projectsCopy}
+          />
         </Suspense>
       </FadeIn>
 
       <div className="section-padding" />
       <Suspense>
-        <AboutUs image={landingData?.about?.image} />
+        <AboutUs data={landingData.about} />
       </Suspense>
       <div className="section-padding-xl" />
 
       <Suspense>
         <Container>
-          <ServicesGrid data={landingData.services} />
+          <ServicesGrid
+            data={landingData.services}
+            content={landingData.servicesCopy}
+          />
         </Container>
       </Suspense>
 
       <Suspense>
         <Container>
-          <Partners data={landingData.partners} />
+          <Partners
+            data={landingData.partners}
+            title={landingData.partnersTitle}
+          />
         </Container>
       </Suspense>
 
@@ -178,7 +207,7 @@ export default async function Page({ params }: Props) {
       </Suspense>
       <div className="section-padding" />
 
-      <Footer />
+      <Footer settings={siteSettings} />
     </div>
   );
 }

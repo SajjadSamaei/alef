@@ -13,6 +13,7 @@ import { ButtonCustomColor } from "@/components/ui/button";
 import { Container } from "@/components/chegall/studio/Container";
 import { Gradient } from "@/components/chegall/radient/gradient";
 import { Logo } from "@/components/chegall/radient/logo";
+import type { PublicSiteSettings } from "@/src/types/site-settings";
 
 function SocialIconX(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
@@ -42,35 +43,27 @@ function SocialIconLinkedIn(props: React.ComponentPropsWithoutRef<"svg">) {
   );
 }
 
-function SocialLinks() {
+function SocialLinks({ settings }: { settings: PublicSiteSettings }) {
   const t = useTranslations("Footer.Navigation.social");
+  const links = [
+    { href: settings.social?.facebook, label: t("facebook"), Icon: SocialIconFacebook },
+    { href: settings.social?.x, label: t("twitter"), Icon: SocialIconX },
+    { href: settings.social?.linkedin, label: t("instagram"), Icon: SocialIconLinkedIn },
+  ].filter((item) => item.href);
 
   return (
     <>
-      <Link
-        href="https://facebook.com"
-        target="_blank"
-        aria-label={t("facebook")}
-        className="text-gray-950 transition-opacity hover:opacity-75 data-hover:text-gray-950/75"
-      >
-        <SocialIconFacebook className="size-4" />
-      </Link>
-      <Link
-        href="https://x.com"
-        target="_blank"
-        aria-label={t("twitter")}
-        className="text-gray-950 transition-opacity hover:opacity-75 data-hover:text-gray-950/75"
-      >
-        <SocialIconX className="size-4" />
-      </Link>
-      <Link
-        href="https://linkedin.com"
-        target="_blank"
-        aria-label={t("instagram")}
-        className="text-gray-950 transition-opacity hover:opacity-75 data-hover:text-gray-950/75"
-      >
-        <SocialIconLinkedIn className="size-4" />
-      </Link>
+      {links.map(({ href, label, Icon }) => (
+        <Link
+          key={href}
+          href={href!}
+          target="_blank"
+          aria-label={label}
+          className="text-gray-950 transition-opacity hover:opacity-75 data-hover:text-gray-950/75"
+        >
+          <Icon className="size-4" />
+        </Link>
+      ))}
     </>
   );
 }
@@ -130,7 +123,7 @@ function SitemapLink({
   );
 }
 
-function Sitemap() {
+function Sitemap({ settings }: { settings: PublicSiteSettings }) {
   const t = useTranslations("Footer.Navigation");
 
   return (
@@ -145,14 +138,10 @@ function Sitemap() {
       <div>
         <SitemapHeading>{t("chegall.title")}</SitemapHeading>
         <SitemapLinksWrapper>
-          <SitemapLink href="/about">{t("chegall.links.about")}</SitemapLink>
-          <SitemapLink href="/process">
-            {t("chegall.links.process")}
-          </SitemapLink>
-          <SitemapLink href="/blog">{t("chegall.links.blog")}</SitemapLink>
-          <SitemapLink href="/contact">
-            {t("chegall.links.contact")}
-          </SitemapLink>
+          {settings.pages?.about !== false && <SitemapLink href="/about">{t("chegall.links.about")}</SitemapLink>}
+          {settings.pages?.process !== false && <SitemapLink href="/process">{t("chegall.links.process")}</SitemapLink>}
+          {settings.pages?.blog !== false && <SitemapLink href="/blog">{t("chegall.links.blog")}</SitemapLink>}
+          {settings.pages?.contact !== false && <SitemapLink href="/contact">{t("chegall.links.contact")}</SitemapLink>}
         </SitemapLinksWrapper>
       </div>
 
@@ -160,30 +149,30 @@ function Sitemap() {
       <div>
         <SitemapHeading>{t("social.title")}</SitemapHeading>
         <SitemapLinksWrapper>
-          <li>
+          {settings.contact?.phone && <li>
             <a
-              href="tel:+989177609917"
+              href={`tel:${settings.contact.phone}`}
               className="font-medium text-gray-950 transition-colors hover:text-gray-700"
             >
               {t("social.phone")}
             </a>
-          </li>
-          <li>
+          </li>}
+          {settings.social?.whatsapp && <li>
             <a
-              href="https://wa.me/989177609917"
+              href={settings.social.whatsapp}
               className="font-medium text-gray-950 transition-colors hover:text-gray-700"
             >
               {t("social.whatsapp")}
             </a>
-          </li>
-          <li>
+          </li>}
+          {settings.social?.telegram && <li>
             <a
-              href="https://t.me/rasooldabirinasab"
+              href={settings.social.telegram}
               className="font-medium text-gray-950 transition-colors hover:text-gray-700"
             >
               {t("social.telegram")}
             </a>
-          </li>
+          </li>}
         </SitemapLinksWrapper>
       </div>
     </>
@@ -208,14 +197,14 @@ function Copyright() {
 /* 4. MAIN FOOTER COMPONENT                                                   */
 /* -------------------------------------------------------------------------- */
 
-export function Footer() {
+export function Footer({ settings }: { settings: PublicSiteSettings }) {
   return (
     <footer>
       <Gradient className="relative">
         <div className="absolute inset-2 rounded-4xl bg-white/80" />
 
         <Container>
-          <CallToAction />
+          {settings.pages?.contact !== false && <CallToAction />}
 
           <div className="pb-16">
             <PlusGrid>
@@ -230,7 +219,7 @@ export function Footer() {
 
                   {/* Sitemaps */}
                   <div className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-4 lg:grid-cols-subgrid lg:pt-6">
-                    <Sitemap />
+                    <Sitemap settings={settings} />
                   </div>
                 </div>
               </PlusGridRow>
@@ -244,7 +233,7 @@ export function Footer() {
                 </div>
                 <div className="flex">
                   <PlusGridItem className="flex items-center gap-8 py-3">
-                    <SocialLinks />
+                    <SocialLinks settings={settings} />
                   </PlusGridItem>
                 </div>
               </PlusGridRow>

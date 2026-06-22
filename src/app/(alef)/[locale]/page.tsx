@@ -7,13 +7,11 @@ import { Partners } from "@/components/Landing/Partners";
 import Hero from "@/components/Landing/hero";
 import { Testimonial } from "@/components/Landing/Testimonial";
 import ProjectShowcase from "@/components/Landing/projects";
-import BlogSpotlight from "@/components/Blog/UI/Spotlight/blog-spotlight";
 import { withI18nMetadata } from "@/src/i18n/i18nMetadata";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { locales, defaultLocale } from "@/src/i18n/i18n.config";
 import { Suspense } from "react";
-import { ServicesGrid } from "@/components/Landing/ServicesGrid";
 import { Media, LandingPage } from "@/src/payload-types";
 import { getCachedGlobal } from "@/payload/utilities/getGlobals";
 import {
@@ -180,14 +178,10 @@ export default async function Page({ params }: Props) {
       </Suspense>
       <div className="section-padding-xl" />
 
-      <Suspense>
-        <Container>
-          <ServicesGrid
-            data={landingData.services}
-            content={landingData.servicesCopy}
-          />
-        </Container>
-      </Suspense>
+      {/*
+        Homepage services collage hidden by client request.
+        Restore the Landing/ServicesGrid import and this block if needed later.
+      */}
 
       <Suspense>
         <Container>
@@ -198,9 +192,10 @@ export default async function Page({ params }: Props) {
         </Container>
       </Suspense>
 
-      <Suspense>
-        <BlogSpotlight />
-      </Suspense>
+      {/*
+        Homepage blog carousel hidden by client request.
+        Restore the BlogSpotlight import and this block if the blog returns.
+      */}
 
       <Suspense>
         <Testimonial data={landingData.testimonial} />

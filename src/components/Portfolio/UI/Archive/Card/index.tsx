@@ -117,7 +117,7 @@ export const Card: React.FC<{
   doc?: CardDoc;
   relationTo?: "blog" | "projects" | "case-studies";
   showCategories?: boolean;
-  imageSize?: "card" | "xlarge";
+  imageSize?: "card" | "xlarge" | "square";
 }> = (props) => {
   const {
     className,
@@ -197,7 +197,7 @@ export const Card: React.FC<{
                 resource={displayImage}
                 size={imageSize}
                 fill
-                imgClassName="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                imgClassName="object-cover grayscale transition duration-700 ease-in-out group-hover:scale-105 group-hover:grayscale-0"
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90" />

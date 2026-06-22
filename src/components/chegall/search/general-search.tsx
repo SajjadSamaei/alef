@@ -230,18 +230,18 @@ export function GeneralSearchBar({
       </button>
 
       {open && (
-        <div dir={direction} className="relative z-[100]">
+        <div dir={direction} className="relative z-[1000]">
           <button
             type="button"
             aria-label={t("close")}
-            className="fixed inset-0 cursor-default bg-neutral-950/20 backdrop-blur-sm"
+            className="fixed inset-0 z-[1000] cursor-default bg-neutral-950/20 backdrop-blur-sm"
             onClick={() => {
               setOpen(false);
               setQuery("");
             }}
           />
 
-          <div className="fixed inset-0 z-[100] w-screen overflow-y-auto p-4 sm:p-6 md:p-20">
+          <div className="fixed inset-0 z-[1001] w-screen overflow-y-auto p-4 sm:p-6 md:p-20">
             <div
               role="dialog"
               aria-modal="true"

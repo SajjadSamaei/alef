@@ -585,6 +585,15 @@ declare const messages: {
       "emailTitle": "Email Us",
       "emailLabelInfo": "General & Projects",
       "followTitle": "Follow Us"
+    },
+    "Direct": {
+      "title": "Contact the office directly",
+      "description": "Use the channels below to start a conversation or follow up with Alef Office.",
+      "email": "Office email",
+      "officePhone": "Office phone",
+      "mobile": "Office mobile",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram"
     }
   },
   "ContactForm": {

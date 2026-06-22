@@ -171,7 +171,7 @@ export const Project: React.FC<{
                 resource={featuredImage}
                 size={imageSize}
                 fill
-                imgClassName="transition-transform duration-700 ease-in-out group-hover:scale-105"
+                imgClassName="object-cover grayscale transition duration-700 ease-in-out group-hover:scale-105 group-hover:grayscale-0"
               />
             </div>
             <div className="from-100 absolute inset-0 bg-linear-to-t from-black/80 to-50%" />

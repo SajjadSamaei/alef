@@ -85,6 +85,29 @@ export const SiteSettings: GlobalConfig = {
                   },
                 },
                 {
+                  name: "mobilePhones",
+                  type: "array",
+                  label: label("Mobile phone numbers", "شماره‌های موبایل دفتر"),
+                  labels: {
+                    singular: label("Mobile number", "شماره موبایل"),
+                    plural: label("Mobile numbers", "شماره‌های موبایل"),
+                  },
+                  admin: {
+                    description: label(
+                      "Add office mobile numbers shown on the contact page.",
+                      "شماره‌های موبایل دفتر که در صفحه تماس نمایش داده می‌شوند.",
+                    ),
+                  },
+                  fields: [
+                    {
+                      name: "number",
+                      type: "text",
+                      required: true,
+                      label: label("Number", "شماره"),
+                    },
+                  ],
+                },
+                {
                   name: "officeName",
                   type: "text",
                   localized: true,
@@ -144,7 +167,7 @@ export const SiteSettings: GlobalConfig = {
                 pageToggle("process", "Design process", "فرآیند طراحی"),
                 pageToggle("about", "About", "درباره ما"),
                 pageToggle("blog", "Blog", "وبلاگ"),
-                pageToggle("contact", "Contact", "تماس و همکاری"),
+                pageToggle("contact", "Contact", "تماس با ما"),
                 pageToggle("team", "Team profiles", "پروفایل اعضای تیم"),
               ],
             },

@@ -212,39 +212,11 @@ export default buildConfig({
         "پروفایل اعضای دفتر، سمت، سوابق، تصویر و وضعیت همکاری را مدیریت کنید.",
       ),
     }),
-    organizeCollection(Posts, {
-      group: label("Magazine", "مجله و مطالب"),
-      singular: label("Post", "مطلب"),
-      plural: label("Blog posts", "مطالب وبلاگ"),
-      description: label(
-        "Persian and English articles, authors, categories, imagery, and SEO.",
-        "مقالات فارسی و انگلیسی، تصویر شاخص، نویسنده، دسته‌بندی و اطلاعات سئو.",
-      ),
-    }),
-    organizeCollection(Authors, {
-      group: label("Magazine", "مجله و مطالب"),
-      singular: label("Author", "نویسنده"),
-      plural: label("Authors", "نویسندگان"),
-      description: label("Manage blog author profiles.", "مشخصات نویسندگان مطالب وبلاگ را مدیریت کنید."),
-    }),
-    organizeCollection(Categories, {
-      group: label("Magazine", "مجله و مطالب"),
-      singular: label("Post category", "دسته‌بندی مطلب"),
-      plural: label("Post categories", "دسته‌بندی‌های مطالب"),
-      description: label("Primary blog archive categories.", "دسته‌بندی اصلی مطالب برای آرشیو و جست‌وجوی وبلاگ."),
-    }),
-    organizeCollection(BlogCategories, {
-      group: label("Magazine", "مجله و مطالب"),
-      singular: label("Blog topic", "موضوع وبلاگ"),
-      plural: label("Blog topics", "موضوعات وبلاگ"),
-      description: label("Additional topics for organizing posts.", "موضوعات تکمیلی برای مرتب‌سازی مطالب وبلاگ."),
-    }),
-    organizeCollection(Tags, {
-      group: label("Magazine", "مجله و مطالب"),
-      singular: label("Tag", "برچسب"),
-      plural: label("Tags", "برچسب‌ها"),
-      description: label("Keywords used for search and related content.", "کلیدواژه‌های مرتبط با مطالب برای جست‌وجو و ارتباط محتوا."),
-    }),
+    hideCollection(Posts),
+    hideCollection(Authors),
+    hideCollection(Categories),
+    hideCollection(BlogCategories),
+    hideCollection(Tags),
     organizeCollection(CaseStudyMedia, {
       group: label("Media", "رسانه‌ها"),
       singular: label("Project media", "رسانه پروژه"),
@@ -257,12 +229,7 @@ export default buildConfig({
       plural: label("General images", "تصاویر عمومی"),
       description: label("Images for pages, services, process, logos, and shared content.", "تصاویر صفحات اصلی، خدمات، فرآیند طراحی، لوگوها و محتوای عمومی سایت."),
     }),
-    organizeCollection(BlogMedia, {
-      group: label("Media", "رسانه‌ها"),
-      singular: label("Blog image", "تصویر وبلاگ"),
-      plural: label("Blog images", "تصاویر وبلاگ"),
-      description: label("Featured and inline blog imagery.", "تصاویر شاخص و داخل مطالب وبلاگ."),
-    }),
+    hideCollection(BlogMedia),
     organizeCollection(TeamMedia, {
       group: label("Media", "رسانه‌ها"),
       singular: label("Team image", "تصویر عضو تیم"),

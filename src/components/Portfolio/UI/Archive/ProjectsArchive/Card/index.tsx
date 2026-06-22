@@ -50,7 +50,7 @@ export const Card: React.FC<{
   doc?: Project;
   relationTo?: "projects";
   showCategories?: boolean;
-  imageSize?: "card" | "xlarge"; // Explicitly passed from parent
+  imageSize?: "card" | "xlarge" | "square";
 }> = (props) => {
   const locale = useLocale();
   const { card, link } = useClickableCard({});

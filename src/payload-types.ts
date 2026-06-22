@@ -645,8 +645,6 @@ export interface TeamMedia {
   };
 }
 /**
- * Persian and English articles, authors, categories, imagery, and SEO.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
@@ -725,8 +723,6 @@ export interface Post {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Featured and inline blog imagery.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-media".
  */
@@ -846,8 +842,6 @@ export interface BlogMedia {
   };
 }
 /**
- * Additional topics for organizing posts.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-categories".
  */
@@ -869,8 +863,6 @@ export interface BlogCategory {
   createdAt: string;
 }
 /**
- * Keywords used for search and related content.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags".
  */
@@ -883,8 +875,6 @@ export interface Tag {
   createdAt: string;
 }
 /**
- * Manage blog author profiles.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "authors".
  */
@@ -1067,8 +1057,6 @@ export interface User {
   collection: 'users';
 }
 /**
- * Primary blog archive categories.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
@@ -3808,6 +3796,15 @@ export interface SiteSetting {
      * Use international format, for example +98912...
      */
     phone: string;
+    /**
+     * Add office mobile numbers shown on the contact page.
+     */
+    mobilePhones?:
+      | {
+          number: string;
+          id?: string | null;
+        }[]
+      | null;
     officeName?: string | null;
     addressLine1?: string | null;
     addressLine2?: string | null;
@@ -4244,6 +4241,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         email?: T;
         phone?: T;
+        mobilePhones?:
+          | T
+          | {
+              number?: T;
+              id?: T;
+            };
         officeName?: T;
         addressLine1?: T;
         addressLine2?: T;

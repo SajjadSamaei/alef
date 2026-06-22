@@ -2,6 +2,7 @@ export type PublicSiteSettings = {
   contact?: {
     email?: string | null;
     phone?: string | null;
+    mobilePhones?: { number?: string | null }[] | null;
     officeName?: string | null;
     addressLine1?: string | null;
     addressLine2?: string | null;

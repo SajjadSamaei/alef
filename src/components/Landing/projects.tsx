@@ -79,7 +79,7 @@ export default async function ProjectShowcase({ locale, content }: Props) {
 
       <div className="mt-16">
         {/* Passing data to your existing component */}
-        <CaseStudyArchive projects={projects} />
+        <CaseStudyArchive projects={projects} direction={direction} />
       </div>
     </ContainerCard>
   );

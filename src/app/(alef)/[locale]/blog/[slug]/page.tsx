@@ -19,7 +19,10 @@ import { FallbackToastNotifier } from "@/components/Blog/UI/FallbackToastNotifie
 import { TableOfContents } from "@/components/Blog/UI/TableOfContents"; // New Component
 import { extractHeadings } from "@/components/Blog/UI/TableOfContents/hooks/extractHeadings"; // New Utility
 import { RelatedPosts } from "@/components/Blog/UI/RelatedPosts/Component";
-import { requireEnabledPage } from "@/payload/utilities/siteSettings";
+import {
+  getSiteSettings,
+  requireEnabledPage,
+} from "@/payload/utilities/siteSettings";
 
 const { BASE_URL } = process.env;
 const DEFAULT_LOCALE = localization.defaultLocale || "en";
@@ -46,6 +49,31 @@ const queryPostBySlug = cache(
 
     const doc = result.docs?.[0] || null;
     return doc as Post & { locale?: TypedLocale };
+  },
+);
+
+const queryPublishedPostBySlug = cache(
+  async ({ slug, locale }: { slug: string; locale: TypedLocale }) => {
+    const payload = await getPayload({ config: configPromise });
+    const defaultLocale = localization.defaultLocale || "en";
+
+    const result = await payload.find({
+      collection: "posts",
+      locale,
+      fallbackLocale: defaultLocale as TypedLocale,
+      draft: false,
+      limit: 1,
+      overrideAccess: false,
+      pagination: false,
+      where: {
+        and: [
+          { slug: { equals: slug } },
+          { _status: { equals: "published" } },
+        ],
+      },
+    });
+
+    return (result.docs?.[0] || null) as Post | null;
   },
 );
 
@@ -167,8 +195,18 @@ export default async function Post({ params: paramsPromise }: Args) {
 // --- Metadata Generation (Optimized) ---
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
   const { slug = "", locale } = await params;
-  const post = await queryPostBySlug({ slug, locale });
-  const t = await getTranslations();
+  const settings = await getSiteSettings(locale);
+
+  if (settings.pages?.blog === false) {
+    return {
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const post = await queryPublishedPostBySlug({ slug, locale });
 
   if (!post) return {};
 
@@ -188,6 +226,12 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
+  const settings = await getSiteSettings(DEFAULT_LOCALE as TypedLocale);
+
+  if (settings.pages?.blog === false) {
+    return [{ slug: "__blog-disabled__", locale: DEFAULT_LOCALE }];
+  }
+
   const payload = await getPayload({ config: configPromise });
   const posts = await payload.find({
     collection: "posts",

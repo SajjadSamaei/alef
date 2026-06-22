@@ -19,7 +19,10 @@ import { BlogArchiveUI } from "@/components/Blog/UI/Archive/BlogArchiveUI";
 import { BlogFilterProvider } from "@/components/Blog/UI/Archive/Filters/FilterProvider";
 import { ArchiveFilterRibbon } from "@/components/Blog/UI/Archive/Filters/filter-ribbon";
 import QueryProvider from "@/payload/utilities/stores/QueryProvider";
-import { requireEnabledPage } from "@/payload/utilities/siteSettings";
+import {
+  getSiteSettings,
+  requireEnabledPage,
+} from "@/payload/utilities/siteSettings";
 
 // export const dynamic = "force-static";
 // export const revalidate = 600;
@@ -35,6 +38,17 @@ type PostWithLocale = Post & { locale?: TypedLocale };
 // to ensure the fallback model works perfectly.
 //
 export async function generateStaticParams() {
+  const settings = await getSiteSettings(localization.defaultLocale as TypedLocale);
+
+  if (settings.pages?.blog === false) {
+    return [
+      {
+        locale: localization.defaultLocale,
+        slug: ["__blog-disabled__"],
+      },
+    ];
+  }
+
   const payload = await getPayload({ config: configPromise });
   const allParams = new Set<string>(); // Stores "locale|path"
   const locales = localization.locales.map((l) => l.code);

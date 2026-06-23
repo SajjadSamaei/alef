@@ -167,9 +167,9 @@ export default async function TeamMemberPage({ params: paramsPromise }: Args) {
               </SharpCard>
 
               {/* 👇 DETAILS (Desktop Only): Visible on lg screens and up */}
-              <div className="hidden lg:block">
-                <Details post={post} relatedArticles={authorData} />
-              </div>
+              {/* <div className="hidden lg:block">
+                <Details post={post} />
+              </div> */}
             </div>
           </div>
 
@@ -181,9 +181,9 @@ export default async function TeamMemberPage({ params: paramsPromise }: Args) {
             </div>
 
             {/* 👇 DETAILS (Mobile Only): Hidden on lg screens and up */}
-            <div className="block lg:hidden">
-              <Details post={post} relatedArticles={authorData} />
-            </div>
+            {/* <div className="block lg:hidden">
+              <Details post={post}  />
+            </div> */}
 
             {/* Main Bio Content */}
             {post.details && (

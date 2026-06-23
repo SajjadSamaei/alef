@@ -18,7 +18,11 @@ import type { Team as Teams } from "@/src/payload-types";
 import type { AboutPage as AboutPageData } from "@/src/payload-types";
 import { getCachedGlobal } from "@/payload/utilities/getGlobals";
 import { ImageMedia } from "@/components/Blog/Media/ImageMedia";
-import { getSiteSettings, getStaticPageMetadata, requireEnabledPage } from "@/payload/utilities/siteSettings";
+import {
+  getSiteSettings,
+  getStaticPageMetadata,
+  requireEnabledPage,
+} from "@/payload/utilities/siteSettings";
 
 // --- Types ---
 type TeamGroup = {
@@ -264,7 +268,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata.About" });
   const settings = await getSiteSettings(locale as TypedLocale);
-  return getStaticPageMetadata({ settings, page: "about", fallbackTitle: t("title"), fallbackDescription: t("description") });
+  return getStaticPageMetadata({
+    settings,
+    page: "about",
+    fallbackTitle: t("title"),
+    fallbackDescription: t("description"),
+  });
 }
 
 export default async function About({ params }: Props) {
@@ -277,7 +286,11 @@ export default async function About({ params }: Props) {
     getTranslations("About.Hero"),
     getTranslations("About.Team"),
     getGroupedTeamMembers({ locale: locale as TypedLocale }),
-    getCachedGlobal("about-page", 1, locale as TypedLocale)() as Promise<AboutPageData>,
+    getCachedGlobal(
+      "about-page",
+      1,
+      locale as TypedLocale,
+    )() as Promise<AboutPageData>,
   ]);
 
   return (
@@ -297,7 +310,7 @@ export default async function About({ params }: Props) {
           </div>
         </Container>
       </div>
-      <Container className="mt-12 sm:mt-16">
+      {/* <Container className="mt-12 sm:mt-16">
         <FadeIn>
           <figure>
             <div className="relative aspect-[16/9] overflow-hidden rounded-[32px] bg-neutral-100 dark:bg-neutral-900">
@@ -316,7 +329,7 @@ export default async function About({ params }: Props) {
             )}
           </figure>
         </FadeIn>
-      </Container>
+      </Container> */}
       <Impact />
       <Values />
 

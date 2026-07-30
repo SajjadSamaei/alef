@@ -177,8 +177,11 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString:
-        process.env.POSTGRES_URL ||
+        (process.env.NEXT_PHASE === "phase-production-build"
+          ? process.env.BUILD_DATABASE_URI || process.env.POSTGRES_URL
+          : undefined) ||
         process.env.DATABASE_URI ||
+        process.env.POSTGRES_URL ||
         process.env.DATABASE_URL ||
         "",
     },

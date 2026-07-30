@@ -87,9 +87,14 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    if (!process.env.POSTGRES_URL) return [];
+    const dbUrl =
+      process.env.BUILD_DATABASE_URI ||
+      process.env.POSTGRES_URL ||
+      process.env.DATABASE_URI;
 
-    const client = new pg.Client({ connectionString: process.env.POSTGRES_URL });
+    if (!dbUrl) return [];
+
+    const client = new pg.Client({ connectionString: dbUrl });
     try {
       await client.connect();
       const { rows } = await client.query(`

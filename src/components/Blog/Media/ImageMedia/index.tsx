@@ -136,9 +136,9 @@ export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
       )}
       <NextImage
         alt={alt || ""}
-        className={clsx(
+        className={cn(
           "h-full w-full overflow-hidden object-cover",
-          cn(imgClassName),
+          imgClassName,
         )}
         src={src}
         width={!fill ? width : undefined}

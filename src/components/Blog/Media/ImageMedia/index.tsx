@@ -16,6 +16,7 @@ type ExtendedMediaProps = MediaProps & {
   // ✅ NEW PROP: Explicitly request a specific Payload image size
   imgSize?: "card" | "square" | "large" | "thumbnail" | "og" | "twitter";
   disableSources?: boolean;
+  onLoad?: () => void;
 };
 
 export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
@@ -33,6 +34,7 @@ export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
     // ✅ Destructure the new prop
     imgSize,
     disableSources,
+    onLoad,
   } = props;
 
   let width: number | undefined;
@@ -148,6 +150,7 @@ export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
         priority={priority}
         placeholder={placeholder}
         blurDataURL={blurDataURL}
+        onLoad={onLoad}
       />
     </picture>
   );

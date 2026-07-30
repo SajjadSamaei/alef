@@ -6,7 +6,15 @@ export const revalidateGlobal =
   ({ doc, req: { context, payload } }) => {
     if (!context.disableRevalidate) {
       payload.logger.info(`Revalidating global: ${slug}`);
-      revalidateTag(`global_${slug}`, "max");
+      try {
+        revalidateTag(`global_${slug}`, "max");
+      } catch (error) {
+        payload.logger.warn(
+          `Skipped Next cache revalidation for global ${slug}: ${
+            (error as Error).message
+          }`,
+        );
+      }
     }
 
     return doc;

@@ -5,20 +5,11 @@ import { CalendarIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Link from "next/link";
 import React, { Fragment, useMemo } from "react";
-import { JSX } from "react";
 import { ImageMedia } from "@/components/Blog/Media/ImageMedia";
 import type { CaseStudy } from "@/src/payload-types";
-import { useLocale } from "next-intl";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/utils/cn";
 import { cva, type VariantProps } from "class-variance-authority";
-
-// --- Internal Badge Component ---
-type BadgeType = {
-  className?: string;
-  variant: string;
-  children?: React.ReactNode;
-};
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -29,19 +20,11 @@ const badgeVariants = cva(
           "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-
-        // Green / Success
         success:
           "border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_10px_-4px_rgba(52,211,153,0.3)] backdrop-blur-sm",
-
-        // Amber / Warning
         warning:
           "border-amber-500/20 bg-amber-500/10 text-amber-400 shadow-[0_0_10px_-4px_rgba(251,191,36,0.3)] backdrop-blur-sm",
-
-        // Blue / Info
         info: "border-blue-500/20 bg-blue-500/10 text-blue-400 shadow-[0_0_10px_-4px_rgba(96,165,250,0.3)] backdrop-blur-sm",
-
-        // Neutral / Year
         neutral: "border-white/10 bg-white/5 text-neutral-300 backdrop-blur-md",
       },
     },
@@ -51,14 +34,8 @@ const badgeVariants = cva(
   },
 );
 
-/* -------------------------------------------------------------------------- */
-/* 2. THE COMPONENT                                                           */
-/* -------------------------------------------------------------------------- */
-
-// Maintain your existing prop types if needed, or define new ones
 export interface BadgeProps
-  extends
-    React.HTMLAttributes<HTMLSpanElement>,
+  extends React.HTMLAttributes<HTMLSpanElement>,
     Omit<VariantProps<typeof badgeVariants>, "variant"> {
   variant?:
     | "completed"
@@ -68,12 +45,11 @@ export interface BadgeProps
     | "concept"
     | "schematic"
     | "year"
-    | "default" // Optional: allow 'default' if you still want it
+    | "default"
     | null;
 }
 
 function Badge({ className, variant, ...props }: BadgeProps) {
-  // Map legacy variants to new CVA styles
   const getVariantStyle = () => {
     switch (variant) {
       case "completed":
@@ -88,7 +64,6 @@ function Badge({ className, variant, ...props }: BadgeProps) {
       case "year":
         return "neutral";
       default:
-        // Fallback for null/undefined or unmatched strings
         return "default";
     }
   };
@@ -109,14 +84,14 @@ export const Project: React.FC<{
   showCategories?: boolean;
   title?: string;
   imageSize?: "card" | "xlarge" | "square";
+  showOverlay?: boolean;
 }> = (props) => {
   const locale = useLocale();
   const { card, link } = useClickableCard({});
   const {
     className,
     doc,
-    relationTo,
-    showCategories,
+    showCategories = true,
     title: titleFromProps,
     imageSize = "card",
   } = props;
@@ -128,7 +103,6 @@ export const Project: React.FC<{
     slug,
     projectType,
     projectStatus,
-    meta,
     title,
     featuredImage,
     yearCompleted,
@@ -136,7 +110,6 @@ export const Project: React.FC<{
 
   const isMobile = breakpoint === "xs" || breakpoint === "sm";
 
-  // Normalize Categories
   const categories = useMemo(() => {
     if (!projectType) return [];
     if (Array.isArray(projectType)) return projectType;
@@ -157,7 +130,7 @@ export const Project: React.FC<{
   return (
     <article
       className={clsx(
-        "group border-border bg-card relative overflow-hidden border", // Removed manual hover:cursor-pointer, the Link handles it now
+        "group border-border bg-card relative overflow-hidden border",
         className,
       )}
       ref={card.ref}
@@ -174,25 +147,32 @@ export const Project: React.FC<{
                 imgClassName="object-cover grayscale transition duration-700 ease-in-out group-hover:scale-105 group-hover:grayscale-0"
               />
             </div>
-            <div className="from-100 absolute inset-0 bg-linear-to-t from-black/80 to-50%" />
+            {/* Gradient background fades in on hover */}
+            <div className="from-100 absolute inset-0 bg-linear-to-t from-black/80 to-50% transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
           </>
         )}
 
-        {/* Content Overlay */}
+        {/* Full-card Stretched Link */}
+        <Link
+          className="absolute inset-0 z-10 focus:outline-none"
+          href={href}
+          ref={link.ref}
+          aria-label={titleToUse || "Project"}
+        />
+
+        {/* Content Overlay (Fades in on hover) */}
         <div
           className={clsx(
-            "absolute inset-0 z-10 flex flex-col justify-end gap-1 p-6 text-white xl:p-8", // Added z-10 to ensure clicks hit the link, not the image
+            "absolute inset-0 z-20 flex flex-col justify-end gap-1 p-6 text-white xl:p-8 transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto",
             {
               "pt-16": !showCategories,
               "pt-10": showCategories,
             },
           )}
         >
-          {/* Categories */}
+          {/* Categories / Tags */}
           {showCategories && hasCategories && (
             <div className="relative z-20 text-sm tracking-wider uppercase opacity-80">
-              {" "}
-              {/* z-20 allows text selection if needed, though link usually covers all */}
               {categories.map((category, i) => {
                 if (typeof category === "object" && category !== null) {
                   const categoryData = category as any;
@@ -211,28 +191,17 @@ export const Project: React.FC<{
             </div>
           )}
 
-          {/* Title & Main Link */}
+          {/* Title / Name */}
           {titleToUse && (
             <div className="font-medium md:text-lg xl:text-2xl">
               <h3>
-                <Link
-                  className="not-prose after:absolute after:inset-0 focus:outline-none"
-                  href={href}
-                  ref={link.ref}
-                >
-                  {/* --- FIX START: Stretched Link Span --- */}
-                  <span className="absolute inset-0 z-10" aria-hidden="true" />
-                  {/* --- FIX END --- */}
-                  <span className="relative z-20">{titleToUse}</span>
-                </Link>
+                <span className="not-prose">{titleToUse}</span>
               </h3>
             </div>
           )}
 
           {/* Badges */}
           <div className="pointer-events-none relative z-20 mt-2 flex flex-wrap items-center gap-2">
-            {" "}
-            {/* pointer-events-none lets clicks pass through to the stretched link underneath */}
             {projectStatus && (
               <Badge variant={projectStatus} className="">
                 <p>{t(projectStatus)}</p>

@@ -8,6 +8,7 @@ import { TypingAnimation } from "@/components/ui/magicui/typing-animation";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { useTranslations, useFormatter } from "next-intl";
+import { notFound } from "next/navigation";
 import { locales } from "@/src/i18n/i18n.config";
 import { TypedLocale } from "payload";
 import type { ProcessPage } from "@/src/payload-types";
@@ -253,6 +254,7 @@ function ExecutionPhase({ data }: { data: ProcessPage["execution"] }) {
 export default async function ProcessPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  notFound();
   await requireEnabledPage("process", locale as TypedLocale);
 
   // ✅ Fetch Data

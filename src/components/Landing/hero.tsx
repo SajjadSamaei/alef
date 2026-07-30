@@ -4,11 +4,10 @@ import { Navbar } from "@/components/chegall/radient/Navbar";
 import { ButtonCustomColor } from "@/components/ui/button";
 import { TypingAnimation } from "@/components/ui/magicui/typing-animation";
 import { useTranslations } from "next-intl";
-import { ChevronRight } from "lucide-react"; // Optional icon for the badge
+import { ArrowRight } from "lucide-react";
 import type { LandingPage } from "@/src/payload-types";
 import type { PublicSiteSettings } from "@/src/types/site-settings";
 
-// --- Hero Component ---
 export default function Hero({
   content,
   settings,
@@ -20,25 +19,15 @@ export default function Hero({
 
   return (
     <div className="relative">
-      {/* 1. Changed inset to bottom-2 on mobile so it doesn't touch the very edge 
-        2. Added min-h-[85vh] on mobile to force it to be a full-screen experience
-      */}
       <Gradient className="absolute inset-2 bottom-2 rounded-4xl ring-1 ring-black/5 ring-inset sm:bottom-0 sm:min-h-0" />
 
       <Container className="relative h-full">
         <Navbar settings={settings} />
 
-        {/* LAYOUT FIX: 
-           - min-h-[80vh]: Forces the hero to take up screen height on mobile.
-           - flex-col justify-center: Vertically centers content in that height.
-           - items-center: Horizontally centers content (mobile).
-           - sm:items-start: Returns to left align on desktop.
-        */}
-        <div className="flex min-h-[75vh] flex-col items-center justify-center pb-16 sm:min-h-0 sm:items-start sm:justify-start sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
-          {/* Main Headline */}
+        <div className="flex min-h-[70vh] flex-col items-center justify-center pb-16 sm:min-h-0 sm:items-start sm:justify-start sm:pt-24 sm:pb-28 md:pt-28 md:pb-36">
+          {/* Main Headline with Typing Animation */}
           <div className="flex w-full flex-col items-center sm:items-start">
             <TypingAnimation
-              // Added 'text-center sm:text-left'
               className="font-display text-center text-5xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-start sm:text-8xl/[0.8] md:text-9xl/[0.8]"
               duration={50}
             >
@@ -47,26 +36,25 @@ export default function Hero({
           </div>
 
           {/* Subtitle */}
-          {/* Added 'text-center sm:text-left' and 'mx-auto sm:mx-0' */}
-          <p className="mt-8 max-w-lg text-center text-lg/7 font-medium text-gray-950/75 sm:mx-0 sm:text-start sm:text-2xl/8">
+          <p className="mt-8 max-w-xl text-center text-lg/7 font-medium text-gray-950/80 sm:mx-0 sm:text-start sm:text-2xl/8">
             {content?.subtitle || t("subtitle")}
           </p>
 
-          {/* Buttons */}
-          {/* Added 'w-full justify-center' for mobile buttons */}
+          {/* Buttons with Animated Arrow */}
           <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:mt-12 sm:w-fit sm:flex-row">
             <ButtonCustomColor
               href="/portfolio"
-              className="w-full justify-center rounded-full bg-neutral-950 px-8 py-4 font-semibold text-white hover:bg-neutral-800 sm:w-auto sm:py-3"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-neutral-950 px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-neutral-800 sm:w-auto sm:py-3.5 whitespace-nowrap"
             >
-              {content?.primaryButton || t("primaryButton")}
+              <span className="whitespace-nowrap">{content?.primaryButton || t("primaryButton")}</span>
+              <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
             </ButtonCustomColor>
 
             <ButtonCustomColor
               href="/contact"
-              className="w-full justify-center rounded-full bg-white px-8 py-4 font-semibold text-neutral-950 ring-1 ring-neutral-950/10 hover:bg-neutral-50 sm:w-auto sm:py-3"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition-all duration-300 hover:bg-neutral-100 hover:ring-neutral-950/20 sm:w-auto sm:py-3.5"
             >
-              {content?.secondaryButton || t("secondaryButton")}
+              <span>{content?.secondaryButton || t("secondaryButton")}</span>
             </ButtonCustomColor>
           </div>
         </div>

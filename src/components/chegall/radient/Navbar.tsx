@@ -23,7 +23,6 @@ import type { PublicSiteSettings } from "@/src/types/site-settings";
 const navItems = [
   { href: "/portfolio", key: "portfolio", setting: "portfolio" },
   { href: "/services", key: "services", setting: "services" },
-  { href: "/process", key: "process", setting: "process" },
   { href: "/about", key: "aboutUs", setting: "about" },
   { href: "/blog", key: "blog", setting: "blog" },
   { href: "/contact", key: "workWithUs", setting: "contact" },

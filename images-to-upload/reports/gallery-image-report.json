@@ -1,0 +1,706 @@
+[
+  {
+    "id": 8,
+    "title": "بلوار معلم",
+    "slug": "boulevard-moallem",
+    "imageCount": 2,
+    "portraitCount": 2,
+    "landscapeCount": 0,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 18,
+        "filename": "01-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/01-3.webp",
+        "width": 1760,
+        "height": 2200,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 1 از پروژه بلوار معلم",
+        "id": 19,
+        "filename": "02-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/02-3.webp",
+        "width": 1760,
+        "height": 2200,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "لاله‌زار",
+    "slug": "lalezar",
+    "imageCount": 4,
+    "portraitCount": 4,
+    "landscapeCount": 0,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 36,
+        "filename": "client-20260622-lalezar-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260622-lalezar-1.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 2 از پروژه لاله‌زار",
+        "id": 37,
+        "filename": "client-20260622-lalezar-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260622-lalezar-2.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 3 از پروژه لاله‌زار",
+        "id": 38,
+        "filename": "client-20260622-lalezar-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260622-lalezar-3.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 4 از پروژه لاله‌زار",
+        "id": 39,
+        "filename": "client-20260622-lalezar-4.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260622-lalezar-4.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "وُید",
+    "slug": "void",
+    "imageCount": 6,
+    "portraitCount": 0,
+    "landscapeCount": 0,
+    "squareOrUnknownCount": 6,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 26,
+        "filename": "05-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/05-3.webp",
+        "width": 2200,
+        "height": 2200,
+        "aspectRatio": 1,
+        "orientation": "square"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 2 پروژه وُید",
+        "id": 27,
+        "filename": "01-5.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/01-5.webp",
+        "width": 2200,
+        "height": 2200,
+        "aspectRatio": 1,
+        "orientation": "square"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 3 پروژه وُید",
+        "id": 28,
+        "filename": "02-5.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/02-5.webp",
+        "width": 2200,
+        "height": 2200,
+        "aspectRatio": 1,
+        "orientation": "square"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 4 پروژه وُید",
+        "id": 29,
+        "filename": "03-4.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/03-4.webp",
+        "width": 2200,
+        "height": 2200,
+        "aspectRatio": 1,
+        "orientation": "square"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 5 پروژه وُید",
+        "id": 30,
+        "filename": "04-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/04-3.webp",
+        "width": 2200,
+        "height": 2200,
+        "aspectRatio": 1,
+        "orientation": "square"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 6 پروژه وُید",
+        "id": 31,
+        "filename": "06-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/06-3.webp",
+        "width": 2200,
+        "height": 2200,
+        "aspectRatio": 1,
+        "orientation": "square"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "تجیر",
+    "slug": "tajeer",
+    "imageCount": 6,
+    "portraitCount": 0,
+    "landscapeCount": 6,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 20,
+        "filename": "01-4.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/01-4.webp",
+        "width": 2200,
+        "height": 1562,
+        "aspectRatio": 1.408,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 2 پروژه تجیر",
+        "id": 21,
+        "filename": "02-4.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/02-4.webp",
+        "width": 2200,
+        "height": 1562,
+        "aspectRatio": 1.408,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 3 پروژه تجیر",
+        "id": 22,
+        "filename": "03-3.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/03-3.webp",
+        "width": 2200,
+        "height": 1562,
+        "aspectRatio": 1.408,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 4 پروژه تجیر",
+        "id": 23,
+        "filename": "04-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/04-2.webp",
+        "width": 2200,
+        "height": 1562,
+        "aspectRatio": 1.408,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 5 پروژه تجیر",
+        "id": 24,
+        "filename": "05-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/05-2.webp",
+        "width": 2200,
+        "height": 1562,
+        "aspectRatio": 1.408,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 6 پروژه تجیر",
+        "id": 25,
+        "filename": "06-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/06-2.webp",
+        "width": 2200,
+        "height": 1562,
+        "aspectRatio": 1.408,
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "رِما",
+    "slug": "rema",
+    "imageCount": 21,
+    "portraitCount": 17,
+    "landscapeCount": 4,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 40,
+        "filename": "client-20260630-rema-post1-01-a.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-01-a.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 1 از پروژه بازسازی رِما",
+        "id": 40,
+        "filename": "client-20260630-rema-post1-01-a.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-01-a.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 2 از پروژه بازسازی رِما",
+        "id": 41,
+        "filename": "client-20260630-rema-post1-02-b.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-02-b.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 3 از پروژه بازسازی رِما",
+        "id": 42,
+        "filename": "client-20260630-rema-post1-03-c.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-03-c.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 4 از پروژه بازسازی رِما",
+        "id": 43,
+        "filename": "client-20260630-rema-post1-04-d.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-04-d.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 5 از پروژه بازسازی رِما",
+        "id": 44,
+        "filename": "client-20260630-rema-post1-05-e.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-05-e.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 6 از پروژه بازسازی رِما",
+        "id": 45,
+        "filename": "client-20260630-rema-post1-06-f.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-06-f.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 7 از پروژه بازسازی رِما",
+        "id": 46,
+        "filename": "client-20260630-rema-post1-07-g.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-07-g.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 8 از پروژه بازسازی رِما",
+        "id": 47,
+        "filename": "client-20260630-rema-post1-08-h.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-08-h.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 9 از پروژه بازسازی رِما",
+        "id": 48,
+        "filename": "client-20260630-rema-post1-09-i.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-09-i.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 10 از پروژه بازسازی رِما",
+        "id": 49,
+        "filename": "client-20260630-rema-post1-10-img_6981.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-10-img_6981.webp",
+        "width": 746,
+        "height": 1080,
+        "aspectRatio": 0.691,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 11 از پروژه بازسازی رِما",
+        "id": 50,
+        "filename": "client-20260630-rema-post1-11-img_6985.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-11-img_6985.webp",
+        "width": 764,
+        "height": 1080,
+        "aspectRatio": 0.707,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 12 از پروژه بازسازی رِما",
+        "id": 51,
+        "filename": "client-20260630-rema-post1-12-img_7022.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-12-img_7022.webp",
+        "width": 1551,
+        "height": 1080,
+        "aspectRatio": 1.436,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 13 از پروژه بازسازی رِما",
+        "id": 52,
+        "filename": "client-20260630-rema-post1-13-img_7026.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-13-img_7026.webp",
+        "width": 686,
+        "height": 1080,
+        "aspectRatio": 0.635,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 14 از پروژه بازسازی رِما",
+        "id": 53,
+        "filename": "client-20260630-rema-post1-14-img_7031.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-14-img_7031.webp",
+        "width": 742,
+        "height": 1080,
+        "aspectRatio": 0.687,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 15 از پروژه بازسازی رِما",
+        "id": 54,
+        "filename": "client-20260630-rema-post1-15-img_7043.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-15-img_7043.webp",
+        "width": 1665,
+        "height": 1080,
+        "aspectRatio": 1.542,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 16 از پروژه بازسازی رِما",
+        "id": 55,
+        "filename": "client-20260630-rema-post1-16-img_7046.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-16-img_7046.webp",
+        "width": 1533,
+        "height": 1080,
+        "aspectRatio": 1.419,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 17 از پروژه بازسازی رِما",
+        "id": 56,
+        "filename": "client-20260630-rema-post1-17-img_7053.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-17-img_7053.webp",
+        "width": 720,
+        "height": 1080,
+        "aspectRatio": 0.667,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 18 از پروژه بازسازی رِما",
+        "id": 57,
+        "filename": "client-20260630-rema-post1-18-img_7059.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-18-img_7059.webp",
+        "width": 1546,
+        "height": 1080,
+        "aspectRatio": 1.431,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 19 از پروژه بازسازی رِما",
+        "id": 58,
+        "filename": "client-20260630-rema-post1-19-img_7073.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-19-img_7073.webp",
+        "width": 720,
+        "height": 1080,
+        "aspectRatio": 0.667,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "تصویر 20 از پروژه بازسازی رِما",
+        "id": 59,
+        "filename": "client-20260630-rema-post1-20-k.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/client-20260630-rema-post1-20-k.webp",
+        "width": 864,
+        "height": 1080,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "فانوس",
+    "slug": "fanoos",
+    "imageCount": 3,
+    "portraitCount": 3,
+    "landscapeCount": 0,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 15,
+        "filename": "03-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/03-2.webp",
+        "width": 1760,
+        "height": 2200,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 2 پروژه فانوس",
+        "id": 16,
+        "filename": "01-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/01-2.webp",
+        "width": 1760,
+        "height": 2200,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 3 پروژه فانوس",
+        "id": 17,
+        "filename": "02-2.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/02-2.webp",
+        "width": 1760,
+        "height": 2200,
+        "aspectRatio": 0.8,
+        "orientation": "portrait"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "اِج",
+    "slug": "edge",
+    "imageCount": 6,
+    "portraitCount": 6,
+    "landscapeCount": 0,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 9,
+        "filename": "01-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/01-1.webp",
+        "width": 1650,
+        "height": 2200,
+        "aspectRatio": 0.75,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 2 پروژه اِج",
+        "id": 10,
+        "filename": "02-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/02-1.webp",
+        "width": 1650,
+        "height": 2200,
+        "aspectRatio": 0.75,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 3 پروژه اِج",
+        "id": 11,
+        "filename": "03-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/03-1.webp",
+        "width": 1650,
+        "height": 2200,
+        "aspectRatio": 0.75,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 4 پروژه اِج",
+        "id": 12,
+        "filename": "04-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/04-1.webp",
+        "width": 1650,
+        "height": 2200,
+        "aspectRatio": 0.75,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 5 پروژه اِج",
+        "id": 13,
+        "filename": "05-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/05-1.webp",
+        "width": 1650,
+        "height": 2200,
+        "aspectRatio": 0.75,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 6 پروژه اِج",
+        "id": 14,
+        "filename": "06-1.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/06-1.webp",
+        "width": 1650,
+        "height": 2200,
+        "aspectRatio": 0.75,
+        "orientation": "portrait"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "هشت",
+    "slug": "eight",
+    "imageCount": 8,
+    "portraitCount": 2,
+    "landscapeCount": 6,
+    "squareOrUnknownCount": 0,
+    "images": [
+      {
+        "role": "featured",
+        "caption": null,
+        "id": 1,
+        "filename": "06.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/06.webp",
+        "width": 1919,
+        "height": 1080,
+        "aspectRatio": 1.777,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 2 پروژه هشت",
+        "id": 2,
+        "filename": "01.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/01.webp",
+        "width": 1544,
+        "height": 1080,
+        "aspectRatio": 1.43,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 3 پروژه هشت",
+        "id": 3,
+        "filename": "02.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/02.webp",
+        "width": 1620,
+        "height": 1080,
+        "aspectRatio": 1.5,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 4 پروژه هشت",
+        "id": 4,
+        "filename": "03.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/03.webp",
+        "width": 1620,
+        "height": 1080,
+        "aspectRatio": 1.5,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 5 پروژه هشت",
+        "id": 5,
+        "filename": "04.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/04.webp",
+        "width": 1618,
+        "height": 1080,
+        "aspectRatio": 1.498,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 6 پروژه هشت",
+        "id": 6,
+        "filename": "05.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/05.webp",
+        "width": 1694,
+        "height": 1080,
+        "aspectRatio": 1.569,
+        "orientation": "landscape"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 7 پروژه هشت",
+        "id": 7,
+        "filename": "07.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/07.webp",
+        "width": 608,
+        "height": 1080,
+        "aspectRatio": 0.563,
+        "orientation": "portrait"
+      },
+      {
+        "role": "gallery",
+        "caption": "نمای 8 پروژه هشت",
+        "id": 8,
+        "filename": "08.webp",
+        "url": "https://storage.alef-office.ir/alef-cms/case-studies/08.webp",
+        "width": 608,
+        "height": 1080,
+        "aspectRatio": 0.563,
+        "orientation": "portrait"
+      }
+    ]
+  }
+]

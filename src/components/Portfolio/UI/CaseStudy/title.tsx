@@ -21,16 +21,16 @@ function Badge({
   return (
     <span
       className={clsx(
-        "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-md px-2 py-0.5 text-xs font-medium whitespace-nowrap shadow-2xs ring-1 ring-white/10 transition-[color,box-shadow] focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3",
+        "inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap transition-colors shadow-2xs",
         {
-          // Updated Architecture Status Colors
-          "bg-lime-400/10 text-lime-300 hover:bg-lime-400/15":
+          // High contrast status badge colors for Light & Dark mode
+          "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:ring-1 dark:ring-emerald-500/30":
             variant === "built",
-          "bg-amber-400/10 text-amber-400 hover:bg-amber-400/15":
+          "bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 dark:ring-1 dark:ring-amber-500/30":
             variant === "construction",
-          "bg-blue-500/15 text-blue-400 hover:bg-blue-500/25":
+          "bg-sky-100 text-sky-800 dark:bg-sky-950/80 dark:text-sky-300 dark:ring-1 dark:ring-sky-500/30":
             variant === "schematic",
-          "bg-purple-500/15 text-purple-400 hover:bg-purple-500/25":
+          "bg-purple-100 text-purple-900 dark:bg-purple-950/80 dark:text-purple-300 dark:ring-1 dark:ring-purple-500/30":
             variant === "concept",
         },
         className,

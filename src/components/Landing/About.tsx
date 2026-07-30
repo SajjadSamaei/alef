@@ -14,12 +14,12 @@ export function AboutUs({ data }: { data?: LandingPage["about"] }) {
   const direction = getDirection(locale);
 
   return (
-    <div className="section-style">
+    <div className="section-style py-16 sm:py-24 lg:py-28">
       <FadeIn className="grid grid-cols-1 gap-x-32 gap-y-16 xl:grid-cols-5">
         <SectionIntroduction
           className="sm:col-span-2"
-            eyebrow={data?.eyebrow || t("eyebrow")}
-            title={data?.title || t("title")}
+          eyebrow={data?.eyebrow || t("eyebrow")}
+          title={data?.title || t("title")}
         >
           <p className="paragraph-style-pretty text-justify">
             {data?.description || t("description")}
@@ -42,12 +42,9 @@ export function AboutUs({ data }: { data?: LandingPage["about"] }) {
           <ImageMedia
             resource={data?.image}
             fill
-            // Use 'large' size if available for crispness, or 'card' for speed
-            size="large" 
+            size="large"
             imgClassName="object-cover opacity-90 transition-opacity duration-500 hover:opacity-100"
           />
-          
-          {/* Optional: Dark Overlay to ensure image sits nicely on black bg if transparent */}
           <div className="absolute inset-0 -z-10 bg-neutral-950" />
         </div>
       </FadeIn>

@@ -16,6 +16,7 @@ export const ThumbnailMedia: React.FC<MediaProps> = (props) => {
     fill,
     pictureClassName,
     imgClassName,
+    onLoad,
     priority,
     resource,
     size: sizeFromProps,
@@ -102,6 +103,7 @@ export const ThumbnailMedia: React.FC<MediaProps> = (props) => {
         priority={priority}
         placeholder={placeholder}
         blurDataURL={blurDataURL}
+        onLoad={onLoad}
       />
     </picture>
   );

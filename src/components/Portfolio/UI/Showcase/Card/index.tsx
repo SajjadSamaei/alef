@@ -8,7 +8,7 @@ import useClickableCard from "@/payload/utilities/useClickableCard";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Link from "next/link";
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { JSX } from "react";
 import { ThumbnailMedia } from "@/components/Blog/Media/ThumbnailMedia";
 import type { CaseStudy } from "@/src/payload-types";
@@ -86,6 +86,7 @@ export const Card: React.FC<{
 
   const breakpoint = useBreakpoint();
   const direction = useDirection();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const { slug, projectType, projectStatus, meta, title, featuredImage, publishedAt } = doc || {};
   const description = meta?.description;
@@ -253,8 +254,20 @@ export const Card: React.FC<{
       <div className={clsx("relative h-full w-full", aspectRatioClass)}>
         {hasImage && (
           <>
+            <div
+              aria-hidden
+              className={clsx(
+                "absolute inset-0 animate-pulse bg-neutral-200 transition-opacity duration-500 dark:bg-neutral-800",
+                imageLoaded ? "pointer-events-none opacity-0" : "opacity-100",
+              )}
+            />
             <div className="absolute inset-0">
-              <ThumbnailMedia resource={featuredImage} size={imageSizeName} fill />
+              <ThumbnailMedia
+                resource={featuredImage}
+                size={imageSizeName}
+                fill
+                onLoad={() => setImageLoaded(true)}
+              />
             </div>
             <div className="from-100 absolute inset-0 bg-linear-to-t from-black/80 to-80%" />
           </>

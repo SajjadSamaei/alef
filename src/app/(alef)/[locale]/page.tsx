@@ -6,7 +6,7 @@ import { AboutUs } from "@/components/Landing/About";
 import { Partners } from "@/components/Landing/Partners";
 import Hero from "@/components/Landing/hero";
 import { Testimonial } from "@/components/Landing/Testimonial";
-import ProjectShowcase from "@/components/Landing/projects";
+import ProjectShowcase, { ProjectShowcaseSkeleton } from "@/components/Landing/projects";
 import { withI18nMetadata } from "@/src/i18n/i18nMetadata";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -31,17 +31,13 @@ type MediaSize = {
   height?: number | null;
 };
 
-// 2. Updated getUrl function
 const getUrl = (
   media: number | Media | undefined | null,
   size?: keyof NonNullable<Media["sizes"]>,
 ) => {
-  // 1. Basic validation
   if (!media || typeof media !== "object" || !media.url) return "";
 
-  // 2. Check if specific size exists
   if (size && media.sizes) {
-    // Cast to Record to allow dynamic access with [size]
     const sizes = media.sizes as Record<string, MediaSize | undefined>;
     const requestedSize = sizes[size];
 
@@ -50,16 +46,13 @@ const getUrl = (
     }
   }
 
-  // 3. Fallback to original
   return media.url;
 };
 
-// 1. Generate static params for 'en' and 'fa'
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-// 2. Generate dynamic, localized metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
@@ -149,7 +142,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// 3. 👇 Update the component to be Async and accept Params
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -161,10 +153,9 @@ export default async function Page({ params }: Props) {
   return (
     <div className="overflow-hidden bg-white">
       <Hero content={landingData.hero} settings={siteSettings} />
-      {/* <LandingBanner /> */}
-      <div className="section-padding" />
+      
       <FadeIn>
-        <Suspense>
+        <Suspense fallback={<ProjectShowcaseSkeleton />}>
           <ProjectShowcase
             locale={locale as any}
             content={landingData.projectsCopy}
@@ -172,16 +163,9 @@ export default async function Page({ params }: Props) {
         </Suspense>
       </FadeIn>
 
-      <div className="section-padding" />
       <Suspense>
         <AboutUs data={landingData.about} />
       </Suspense>
-      <div className="section-padding-xl" />
-
-      {/*
-        Homepage services collage hidden by client request.
-        Restore the Landing/ServicesGrid import and this block if needed later.
-      */}
 
       <Suspense>
         <Container>
@@ -192,15 +176,9 @@ export default async function Page({ params }: Props) {
         </Container>
       </Suspense>
 
-      {/*
-        Homepage blog carousel hidden by client request.
-        Restore the BlogSpotlight import and this block if the blog returns.
-      */}
-
       <Suspense>
         <Testimonial data={landingData.testimonial} />
       </Suspense>
-      <div className="section-padding" />
 
       <Footer settings={siteSettings} />
     </div>

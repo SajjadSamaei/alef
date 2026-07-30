@@ -35,7 +35,7 @@ export const getCachedGlobal = (
 
   return unstable_cache(
     async () => getGlobal(slug, depth, locale),
-    ["global-v2", slug, localeKey, String(depth)],
+    ["global-v3", slug, localeKey, String(depth)],
     {
       tags: [`global_${slug}`, `global_${slug}_${localeKey}`],
     },

@@ -174,14 +174,13 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  // db: vercelPostgresAdapter({
-  //   pool: {
-  //     connectionString: process.env.POSTGRES_URL || "",
-  //   },
-  // }),
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL || "",
+      connectionString:
+        process.env.POSTGRES_URL ||
+        process.env.DATABASE_URI ||
+        process.env.DATABASE_URL ||
+        "",
     },
   }),
   collections: [

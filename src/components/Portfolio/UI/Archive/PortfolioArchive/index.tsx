@@ -23,7 +23,7 @@ export const PortfolioArchive: React.FC<Props> = (props) => {
                 className={getSquareMosaicRadii(index, length, direction)}
                 doc={result}
                 relationTo="case-studies"
-                showCategories
+                showCategories={true}
                 imageSize="square"
               />
             );

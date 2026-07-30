@@ -24,15 +24,12 @@ export const ProjectList: React.FC<Props> = (props) => {
         {posts?.map((result, index) => {
           if (typeof result === "object" && result !== null) {
             return (
-              <FadeIn
-                key={index}
-                className="h-full"
-              >
+              <FadeIn key={index} className="h-full">
                 <Project
                   className={getSquareMosaicRadii(index, length, direction)}
                   doc={result}
                   relationTo="case-studies"
-                  showCategories
+                  showCategories={true}
                   imageSize="square"
                 />
               </FadeIn>

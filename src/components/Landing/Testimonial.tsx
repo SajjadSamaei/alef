@@ -13,9 +13,7 @@ export function Testimonial({ data }: { data: LandingPage["testimonial"] }) {
   const locale = useLocale();
 
   return (
-    <div
-      className={clsx("relative isolate bg-neutral-50 py-16 sm:py-28 md:py-32")}
-    >
+    <div className="relative isolate bg-neutral-50 py-16 sm:py-24 lg:py-28">
       <GridPattern className="absolute inset-0 -z-10 h-full w-full [mask-image:linear-gradient(to_bottom_left,white_50%,transparent_60%)] fill-neutral-100 stroke-neutral-950/5" />
       <Container>
         <FadeIn>
@@ -33,7 +31,6 @@ export function Testimonial({ data }: { data: LandingPage["testimonial"] }) {
               </p>
             </blockquote>
             <figcaption className="mx-auto mt-10 flex max-w-72 items-center justify-center gap-x-4">
-              {/* Dynamic Author Image */}
               <div className="relative h-14 w-14 flex-none overflow-hidden rounded-md bg-neutral-100 ring-1 ring-neutral-200/50 sm:h-16 sm:w-16">
                 <ImageMedia
                   resource={data?.authorImage}

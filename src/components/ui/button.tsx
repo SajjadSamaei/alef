@@ -78,7 +78,11 @@ function ButtonCustomColor({
     " rounded-full inline-flex px-4 py-1.5 text-sm font-semibold transition",
   );
 
-  const inner = <span className="relative top-px">{children}</span>;
+  const inner = (
+    <span className="relative top-px flex items-center justify-center gap-2 whitespace-nowrap">
+      {children}
+    </span>
+  );
 
   if (typeof props.href === "undefined") {
     return (

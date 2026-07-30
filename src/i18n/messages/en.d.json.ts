@@ -513,7 +513,7 @@ declare const messages: {
       "title": "Precision in every dimension.",
       "description": "We don't just measure square meters; we measure the impact on human experience. Every project is a study in efficiency, aesthetic, and durability.",
       "stats": {
-        "item1": { "value": "22", "label": "Years Active" },
+        "item1": { "value": "9", "label": "Years Active" },
         "item2": { "value": "150+", "label": "Projects Built" },
         "item3": { "value": "12", "label": "Awards Won" },
         "item4": { "value": "100%", "label": "Delivered" }

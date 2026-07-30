@@ -6,7 +6,7 @@ import { X, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { ImageMedia } from "@/components/Blog/Media/ImageMedia";
 import { englishToPersianDigits } from "@/utils/helpers/strings-numbers";
 import { useFormatter } from "next-intl";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import clsx from "clsx";
 
 export function FullscreenLightbox({
@@ -125,7 +125,7 @@ export function FullscreenLightbox({
         currentImage?.url
       : null;
 
-  const slideVariants = {
+  const slideVariants: Variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? 100 : dir < 0 ? -100 : 0,
       opacity: 0,
@@ -136,7 +136,7 @@ export function FullscreenLightbox({
       opacity: 1,
       scale: 1,
       transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
+        x: { type: "spring" as const, stiffness: 300, damping: 30 },
         opacity: { duration: 0.25 },
         scale: { duration: 0.25 },
       },

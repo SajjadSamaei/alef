@@ -13,7 +13,6 @@ const withNextIntl = createNextIntlPlugin({
     // Provide the path to the messages that you're using in `AppConfig`
     createMessagesDeclaration: "./src/i18n/messages/en.json",
   },
-  // ...
 });
 
 const nextConfig = {
@@ -21,7 +20,6 @@ const nextConfig = {
   reactCompiler: true,
   experimental: {
     globalNotFound: true,
-    turbopackFileSystemCacheForDev: true,
     viewTransition: true,
     webVitalsAttribution: ["CLS", "LCP"],
     serverActions: {
@@ -132,18 +130,17 @@ const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"], // Adds support for importing SVGs as React components
+      use: ["@svgr/webpack"],
     });
     return config;
   },
   sassOptions: {
-    // 1. Fix: Add specific Payload SCSS paths to help PNPM resolution
     includePaths: [
       path.join(__dirname, "node_modules"),
       path.join(__dirname, "node_modules/@payloadcms/ui/dist/scss"),
       path.join(__dirname, "node_modules/@payloadcms/ui/scss"),
     ],
-    silenceDeprecations: ["legacy-js-api", "import"], // Add "import" to silence the warning
+    silenceDeprecations: ["legacy-js-api", "import"],
   },
 };
 

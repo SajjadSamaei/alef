@@ -54,33 +54,24 @@ export function FullscreenLightbox({
     });
   }, [currentIndex, isOpen, images]);
 
-  // Physical Right navigation (always moves to the visually right thumbnail & slides right)
+  // Physical Right navigation (clicking the right screen button)
   const handlePhysicalRight = () => {
     setSlideDirection(1);
     setIsImageLoading(true);
-    // In RTL, thumbnails go 0 -> 1 -> 2 from right to left, so rightward thumbnail is index - 1.
-    // In LTR, thumbnails go 0 -> 1 -> 2 from left to right, so rightward thumbnail is index + 1.
-    const targetIdx = isRtl
-      ? (currentIndex - 1 + images.length) % images.length
-      : (currentIndex + 1) % images.length;
-    onSelectIndex(targetIdx);
+    // In standard flex / flex-row-reverse layouts, clicking the right screen button advances to the next thumbnail item (index + 1)
+    onSelectIndex((currentIndex + 1) % images.length);
   };
 
-  // Physical Left navigation (always moves to the visually left thumbnail & slides left)
+  // Physical Left navigation (clicking the left screen button)
   const handlePhysicalLeft = () => {
     setSlideDirection(-1);
     setIsImageLoading(true);
-    const targetIdx = isRtl
-      ? (currentIndex + 1) % images.length
-      : (currentIndex - 1 + images.length) % images.length;
-    onSelectIndex(targetIdx);
+    onSelectIndex((currentIndex - 1 + images.length) % images.length);
   };
 
   const handleThumbnailClick = (idx: number) => {
     if (idx === currentIndex) return;
-    // Determine physical movement direction based on layout direction
-    const isMovingRight = isRtl ? idx < currentIndex : idx > currentIndex;
-    setSlideDirection(isMovingRight ? 1 : -1);
+    setSlideDirection(idx > currentIndex ? 1 : -1);
     setIsImageLoading(true);
     onSelectIndex(idx);
   };

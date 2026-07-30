@@ -1,0 +1,26 @@
+# Liara prefers this file over .dockerignore and .gitignore when creating an archive.
+# The Next platform must resolve dependencies fresh, avoiding lockfile/patch mismatches during container build.
+pnpm-lock.yaml
+package-lock.json
+
+# Local dependencies and build output
+node_modules
+.next
+out
+build
+
+# Local configuration and secrets
+.env
+.env*.local
+
+# Development-only files
+.git
+.idea
+.vscode
+.DS_Store
+coverage
+*.log
+*.out.log
+*.err.log
+*.stackdump
+backups

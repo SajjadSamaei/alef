@@ -15,6 +15,7 @@ type ExtendedMediaProps = MediaProps & {
   mobileImageSize?: "card" | "square" | "large" | "thumbnail";
   // ✅ NEW PROP: Explicitly request a specific Payload image size
   imgSize?: "card" | "square" | "large" | "thumbnail" | "og" | "twitter";
+  disableSources?: boolean;
 };
 
 export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
@@ -31,6 +32,7 @@ export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
     mobileImageSize = "card",
     // ✅ Destructure the new prop
     imgSize,
+    disableSources,
   } = props;
 
   let width: number | undefined;
@@ -75,21 +77,23 @@ export const ImageMedia: React.FC<ExtendedMediaProps> = (props) => {
       height = fullHeight!;
       src = getMediaUrl(url, cacheTag);
 
-      sources = [
-        {
-          media: `(max-width: ${breakpoints.sm}px)`,
-          srcSet:
-            resourceSizes?.[mobileImageSize]?.url || resourceSizes?.card?.url,
-        },
-        {
-          media: `(max-width: ${breakpoints.md}px)`,
-          srcSet: resourceSizes?.square?.url,
-        },
-        {
-          media: `(min-width: ${breakpoints.lg}px)`,
-          srcSet: resourceSizes?.large?.url || resourceSizes?.og?.url,
-        },
-      ];
+      sources = disableSources
+        ? []
+        : [
+            {
+              media: `(max-width: ${breakpoints.sm}px)`,
+              srcSet:
+                resourceSizes?.[mobileImageSize]?.url || resourceSizes?.card?.url,
+            },
+            {
+              media: `(max-width: ${breakpoints.md}px)`,
+              srcSet: resourceSizes?.square?.url,
+            },
+            {
+              media: `(min-width: ${breakpoints.lg}px)`,
+              srcSet: resourceSizes?.large?.url || resourceSizes?.og?.url,
+            },
+          ];
     }
   }
 

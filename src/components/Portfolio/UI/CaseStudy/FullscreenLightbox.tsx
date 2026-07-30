@@ -54,21 +54,33 @@ export function FullscreenLightbox({
     });
   }, [currentIndex, isOpen, images]);
 
-  const handleNext = () => {
+  // Physical Right navigation (always moves to the visually right thumbnail & slides right)
+  const handlePhysicalRight = () => {
     setSlideDirection(1);
     setIsImageLoading(true);
-    onSelectIndex((currentIndex + 1) % images.length);
+    // In RTL, thumbnails go 0 -> 1 -> 2 from right to left, so rightward thumbnail is index - 1.
+    // In LTR, thumbnails go 0 -> 1 -> 2 from left to right, so rightward thumbnail is index + 1.
+    const targetIdx = isRtl
+      ? (currentIndex - 1 + images.length) % images.length
+      : (currentIndex + 1) % images.length;
+    onSelectIndex(targetIdx);
   };
 
-  const handlePrev = () => {
+  // Physical Left navigation (always moves to the visually left thumbnail & slides left)
+  const handlePhysicalLeft = () => {
     setSlideDirection(-1);
     setIsImageLoading(true);
-    onSelectIndex((currentIndex - 1 + images.length) % images.length);
+    const targetIdx = isRtl
+      ? (currentIndex + 1) % images.length
+      : (currentIndex - 1 + images.length) % images.length;
+    onSelectIndex(targetIdx);
   };
 
   const handleThumbnailClick = (idx: number) => {
     if (idx === currentIndex) return;
-    setSlideDirection(idx > currentIndex ? 1 : -1);
+    // Determine physical movement direction based on layout direction
+    const isMovingRight = isRtl ? idx < currentIndex : idx > currentIndex;
+    setSlideDirection(isMovingRight ? 1 : -1);
     setIsImageLoading(true);
     onSelectIndex(idx);
   };
@@ -80,8 +92,9 @@ export function FullscreenLightbox({
         return;
       }
       if (swipeX !== 0) {
-        if (swipeX < 0) handleNext();
-        else handlePrev();
+        // Swiping left moves to the right item; swiping right moves to the left item
+        if (swipeX < 0) handlePhysicalRight();
+        else handlePhysicalLeft();
       }
     },
     {
@@ -97,11 +110,9 @@ export function FullscreenLightbox({
       if (e.key === "Escape") {
         onClose();
       } else if (e.key === "ArrowRight") {
-        if (isRtl) handlePrev();
-        else handleNext();
+        handlePhysicalRight();
       } else if (e.key === "ArrowLeft") {
-        if (isRtl) handleNext();
-        else handlePrev();
+        handlePhysicalLeft();
       }
     };
 
@@ -193,9 +204,9 @@ export function FullscreenLightbox({
           }}
           className="relative flex flex-1 items-center justify-center my-2 overflow-hidden touch-none"
         >
-          {/* Navigation Buttons */}
+          {/* Physical Left Navigation Button (Navigates to the thumbnail on the left) */}
           <button
-            onClick={isRtl ? handleNext : handlePrev}
+            onClick={handlePhysicalLeft}
             aria-label="Previous image"
             className="absolute start-2 sm:start-8 z-30 rounded-full border border-white/15 bg-black/60 p-3.5 text-white shadow-2xl backdrop-blur-md transition-all duration-200 hover:bg-black/90 hover:scale-110 active:scale-95 cursor-pointer"
           >
@@ -257,8 +268,9 @@ export function FullscreenLightbox({
             </AnimatePresence>
           </div>
 
+          {/* Physical Right Navigation Button (Navigates to the thumbnail on the right) */}
           <button
-            onClick={isRtl ? handlePrev : handleNext}
+            onClick={handlePhysicalRight}
             aria-label="Next image"
             className="absolute end-2 sm:end-8 z-30 rounded-full border border-white/15 bg-black/60 p-3.5 text-white shadow-2xl backdrop-blur-md transition-all duration-200 hover:bg-black/90 hover:scale-110 active:scale-95 cursor-pointer"
           >
